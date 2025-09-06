@@ -2,6 +2,7 @@ require 'net/http'
 require 'json'
 require 'nokogiri'
 require 'date'
+require 'httparty'
 
 class DataSyncService
   BASE_URLS = {
@@ -22,22 +23,15 @@ class DataSyncService
       # Fetch new data
       new_data = fetch_lottery_data
       
-      if new_data.any?
-        # Process and save data
-        process_and_save_data(new_data)
-        
-        # Generate predictions
-        generate_predictions
-        
-        # Generate summaries
-        generate_summaries
-        
-        Rails.logger.info "Sync completed for #{@game_type}: #{new_data.length} new records"
-        return { success: true, records_added: new_data.length }
-      else
-        Rails.logger.info "No new data found for #{@game_type}"
-        return { success: true, records_added: 0 }
-      end
+      # Process and save new data
+      records_added = process_and_save_data(new_data)
+      
+      # Always generate predictions and summaries (even if no new data)
+      generate_predictions
+      generate_summaries
+      
+      Rails.logger.info "Sync completed for #{@game_type}: #{records_added} new records"
+      return { success: true, records_added: records_added }
       
     rescue => e
       Rails.logger.error "Sync failed for #{@game_type}: #{e.message}"
@@ -52,21 +46,31 @@ class DataSyncService
     Rails.logger.info "Fetching data from: #{@base_url}"
     
     # Get date range
-    start_date = '01-01-2016'
+    start_date = @game_type == 'vietlot45' ? '01-01-2016' : '03-12-2019'
     end_date = Date.current.strftime('%d-%m-%Y')
     url = "#{@base_url}?datef=#{start_date}&datet=#{end_date}"
     
-    uri = URI(url)
-    response = Net::HTTP.get_response(uri)
+    # Use HTTParty for more robust HTTP handling
+    response = HTTParty.get(url, {
+      headers: {
+        'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
+      },
+      follow_redirects: true,
+      verify: false
+    })
     
-    unless response.is_a?(Net::HTTPSuccess)
+    unless response.success?
       raise "HTTP request failed: #{response.code} #{response.message}"
     end
     
     doc = Nokogiri::HTML(response.body)
     results = []
     
-    doc.css('table.table-mini-result tr').each do |row|
+    # Different selectors for different game types  
+    table_selector = @game_type == 'vietlot45' ? 'table.table-mini-result tr' : 'table.table-mini-result tr'
+    
+    
+    doc.css(table_selector).each do |row|
       cols = row.css('td')
       next unless cols.length >= 3
       
@@ -77,15 +81,27 @@ class DataSyncService
       # Parse numbers using regex
       numbers = numbers_text.scan(/\b\d{1,2}\b/)
       
-      if date_text.present? && numbers.length == 6 && prize_text.present?
-        numbers_str = numbers.join(' ')
+      # Different validation for different game types
+      expected_numbers = @game_type == 'vietlot45' ? 6 : 7
+      
+      
+      if date_text.present? && numbers.length == expected_numbers && prize_text.present?
+        # For vietlot55, use only the first 6 numbers for calculations
+        if @game_type == 'vietlot55' && numbers.length == 7
+          main_numbers = numbers[0..5]
+          power_number = numbers[6]
+          numbers_str = main_numbers.join(' ')
+        else
+          numbers_str = numbers.join(' ')
+        end
+        
         total = calculate_total(numbers_str)
         total_even_or_odd = total.even? ? 'even' : 'odd'
         numeric_prize = extract_numeric_prize(prize_text)
         odd_count = count_odd_numbers(numbers_str)
         even_count = count_even_numbers(numbers_str)
         
-        results << {
+        result = {
           date: date_text,
           numbers: numbers_str,
           prize_s: prize_text,
@@ -95,6 +111,13 @@ class DataSyncService
           odd_count: odd_count,
           even_count: even_count
         }
+        
+        # Add power number for vietlot55
+        if @game_type == 'vietlot55' && numbers.length == 7
+          result[:power_number] = power_number
+        end
+        
+        results << result
       end
     end
     
@@ -105,7 +128,12 @@ class DataSyncService
   def process_and_save_data(new_data)
     Rails.logger.info "Processing and saving data for #{@game_type}"
     
-    new_data.each do |data|
+    # Calculate template tracking fields for all data
+    data_with_tracking = calculate_template_tracking_fields(new_data)
+    
+    records_added = 0
+    
+    data_with_tracking.each do |data|
       # Parse date
       draw_date = parse_date(data[:date])
       
@@ -129,12 +157,77 @@ class DataSyncService
         total_even_or_odd: data[:total_even_or_odd],
         odd_count: data[:odd_count],
         even_count: data[:even_count],
-        template_id: generate_template_id(data[:numbers])
+        template_id: data[:template_id],
+        template_appear_comback_from_prev_count: data[:template_appear_comback_from_prev_count],
+        template_continuos_count: data[:template_continuos_count],
+        template_appear_count: data[:template_appear_count]
       )
+      
+      records_added += 1
       
       # Generate predictions for this draw
       generate_predictions_for_draw(lottery_draw)
     end
+    
+    records_added
+  end
+  
+  def calculate_template_tracking_fields(data)
+    Rails.logger.info "Calculating template tracking fields for #{@game_type}"
+    
+    # Add template_id to each record first
+    data_with_templates = data.map do |record|
+      record.merge(template_id: generate_template_id(record[:numbers]))
+    end
+    
+    # Sort data chronologically (oldest first)
+    sorted_data = data_with_templates.sort_by { |item| parse_date(item[:date]) }
+    
+    # Create a map to track template history
+    template_history = {}
+    
+    # Process each record and calculate tracking fields
+    processed_data = sorted_data.map.with_index do |entry, index|
+      template_id = entry[:template_id]
+      current_date = parse_date(entry[:date])
+      
+      # Initialize tracking fields
+      template_appear_comback_from_prev_count = 0
+      template_continuos_count = 1
+      template_appear_count = 1
+      
+      if template_history[template_id]
+        # Calculate days between current and last appearance
+        days_diff = (current_date - template_history[template_id][:last_appearance]).to_i
+        template_appear_comback_from_prev_count = days_diff
+        
+        # Check if this is continuous (same template as previous entry)
+        if index > 0 && sorted_data[index - 1][:template_id] == template_id
+          template_continuos_count = template_history[template_id][:continuous_count] + 1
+        else
+          template_continuos_count = 1
+        end
+        
+        template_appear_count = template_history[template_id][:total_count] + 1
+      end
+      
+      # Update history
+      template_history[template_id] = {
+        last_appearance: current_date,
+        continuous_count: template_continuos_count,
+        total_count: template_appear_count
+      }
+      
+      # Add tracking fields to the record
+      entry.merge(
+        template_appear_comback_from_prev_count: template_appear_comback_from_prev_count,
+        template_continuos_count: template_continuos_count,
+        template_appear_count: template_appear_count
+      )
+    end
+    
+    # Return in original order (newest first)
+    processed_data.reverse
   end
   
   def generate_predictions
@@ -328,7 +421,11 @@ class DataSyncService
   
   def extract_numeric_prize(prize_str)
     match = prize_str.match(/^([0-9.]+)/)
-    match ? match[1].gsub('.', '') : '0'
+    if match
+      match[1].gsub('.', '').to_i
+    else
+      0
+    end
   end
   
   def count_odd_numbers(numbers_str)

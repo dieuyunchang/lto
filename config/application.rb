@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module VlotoRails
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
+    config.load_defaults 7.1
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
@@ -28,6 +28,9 @@ module VlotoRails
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     # config.api_only = false  # Not available in Rails 5.2
+
+    # ActiveJob configuration
+    config.active_job.queue_adapter = :sidekiq
 
     # CORS configuration
     config.middleware.insert_before 0, Rack::Cors do

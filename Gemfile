@@ -47,6 +47,10 @@ gem "whenever", require: false
 
 gem 'slim'
 
+# HTTP client and HTML parsing
+gem 'nokogiri'
+gem 'httparty'
+
 group :development, :test do
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem 'binding_of_caller'
