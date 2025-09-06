@@ -1,4 +1,4 @@
-class CreateMonthSummaries < ActiveRecord::Migration[6.1]
+class CreateMonthSummaries < ActiveRecord::Migration[5.2]
   def change
     create_table :month_summaries do |t|
       t.string :game_type, null: false # 'vietlot45' or 'vietlot55'

@@ -1,4 +1,4 @@
-class CreateEvenOddSummaries < ActiveRecord::Migration[6.1]
+class CreateEvenOddSummaries < ActiveRecord::Migration[5.2]
   def change
     create_table :even_odd_summaries do |t|
       t.string :game_type, null: false # 'vietlot45' or 'vietlot55'

@@ -1,4 +1,4 @@
-class CreateTemplatePredictions < ActiveRecord::Migration[6.1]
+class CreateTemplatePredictions < ActiveRecord::Migration[5.2]
   def change
     create_table :template_predictions do |t|
       t.string :game_type, null: false # 'vietlot45' or 'vietlot55'

@@ -1,4 +1,4 @@
-class CreatePredictions < ActiveRecord::Migration[6.1]
+class CreatePredictions < ActiveRecord::Migration[5.2]
   def change
     create_table :predictions do |t|
       t.string :game_type, null: false # 'vietlot45' or 'vietlot55'

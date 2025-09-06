@@ -1,4 +1,4 @@
-class CreateDayOfWeekSummaries < ActiveRecord::Migration[6.1]
+class CreateDayOfWeekSummaries < ActiveRecord::Migration[5.2]
   def change
     create_table :day_of_week_summaries do |t|
       t.string :game_type, null: false # 'vietlot45' or 'vietlot55'

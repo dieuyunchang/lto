@@ -1,4 +1,4 @@
-class CreateLotteryDraws < ActiveRecord::Migration[6.1]
+class CreateLotteryDraws < ActiveRecord::Migration[5.2]
   def change
     create_table :lottery_draws do |t|
       t.string :game_type, null: false # 'vietlot45' or 'vietlot55'

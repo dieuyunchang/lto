@@ -4,10 +4,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "2.6.10"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 6.1.0"
+gem "rails", "~> 5.2.0"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem "sprockets-rails", ">= 3.4.0"
+gem "sprockets-rails", "~> 3.2.0"
 
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
@@ -37,7 +37,7 @@ gem "tzinfo-data", platforms: %i[ mswin mswin64 mingw x64_mingw jruby ]
 # gem "image_processing", "~> 1.2"
 
 # Background jobs
-gem "sidekiq", "~> 6.0"
+gem "sidekiq", "~> 5.0"
 
 # CORS support
 gem "rack-cors"
@@ -45,12 +45,9 @@ gem "rack-cors"
 group :development, :test do
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
-
-  # Omakase Ruby styling [https://github.com/Shopify/rubocop-shopify]
-  gem "rubocop-rails-omakase", require: false
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
-  gem "web-console"
+  gem "web-console", "~> 3.7.0"
 end
