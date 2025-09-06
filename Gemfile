@@ -42,6 +42,9 @@ gem "sidekiq", "~> 5.0"
 # CORS support
 gem "rack-cors"
 
+# Cron job management
+gem "whenever", require: false
+
 gem 'slim'
 
 group :development, :test do

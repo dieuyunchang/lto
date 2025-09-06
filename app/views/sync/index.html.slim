@@ -1,0 +1,177 @@
+.row
+  .col-12
+    h1.display-4.text-center.mb-4
+      i.bi.bi-arrow-repeat
+      |  Data Synchronization
+    p.lead.text-center.text-muted.mb-5
+      | Manage lottery data updates and synchronization
+
+.row.mb-4
+  .col-md-6
+    .card.card-hover
+      .card-header.bg-primary.text-white
+        h5.card-title.mb-0
+          i.bi.bi-4-circle
+          |  Vietlot 45 Status
+      .card-body
+        .row
+          .col-6
+            h6.text-muted Last Sync
+            p = @last_sync_times[:vietlot45] ? @last_sync_times[:vietlot45].strftime('%Y-%m-%d %H:%M') : 'Never'
+          .col-6
+            h6.text-muted Status
+            - case @sync_status[:vietlot45]
+            - when 'up_to_date'
+              span.badge.bg-success Up to Date
+            - when 'needs_update'
+              span.badge.bg-warning Needs Update
+            - when 'outdated'
+              span.badge.bg-danger Outdated
+            - else
+              span.badge.bg-secondary No Data
+        .mt-3
+          = link_to "Manual Sync", manual_sync_path(game_type: 'vietlot45'), method: :post, class: "btn btn-primary btn-sm me-2", data: { confirm: "Start manual sync for Vietlot 45?" }
+          = link_to "Force Sync", force_sync_path(game_type: 'vietlot45'), method: :post, class: "btn btn-warning btn-sm", data: { confirm: "Force immediate sync for Vietlot 45?" }
+  
+  .col-md-6
+    .card.card-hover
+      .card-header.bg-success.text-white
+        h5.card-title.mb-0
+          i.bi.bi-5-circle
+          |  Vietlot 55 Status
+      .card-body
+        .row
+          .col-6
+            h6.text-muted Last Sync
+            p = @last_sync_times[:vietlot55] ? @last_sync_times[:vietlot55].strftime('%Y-%m-%d %H:%M') : 'Never'
+          .col-6
+            h6.text-muted Status
+            - case @sync_status[:vietlot55]
+            - when 'up_to_date'
+              span.badge.bg-success Up to Date
+            - when 'needs_update'
+              span.badge.bg-warning Needs Update
+            - when 'outdated'
+              span.badge.bg-danger Outdated
+            - else
+              span.badge.bg-secondary No Data
+        .mt-3
+          = link_to "Manual Sync", manual_sync_path(game_type: 'vietlot55'), method: :post, class: "btn btn-success btn-sm me-2", data: { confirm: "Start manual sync for Vietlot 55?" }
+          = link_to "Force Sync", force_sync_path(game_type: 'vietlot55'), method: :post, class: "btn btn-warning btn-sm", data: { confirm: "Force immediate sync for Vietlot 55?" }
+
+.row.mb-4
+  .col-12
+    .card
+      .card-header
+        h5.card-title.mb-0
+          i.bi.bi-arrow-clockwise
+          |  Bulk Operations
+      .card-body
+        .row
+          .col-md-4
+            = link_to "Sync Both Games", manual_sync_path(game_type: 'both'), method: :post, class: "btn btn-primary w-100 mb-2", data: { confirm: "Start sync for both lottery games?" }
+          .col-md-4
+            = link_to "Force Sync Both", force_sync_path(game_type: 'both'), method: :post, class: "btn btn-warning w-100 mb-2", data: { confirm: "Force immediate sync for both lottery games?" }
+          .col-md-4
+            = link_to "Check Status", sync_status_path, class: "btn btn-info w-100 mb-2", remote: true
+
+.row
+  .col-12
+    .card
+      .card-header
+        h5.card-title.mb-0
+          i.bi.bi-activity
+          |  Sync Activity
+      .card-body
+        #sync-activity
+          .text-center.text-muted
+            i.bi.bi-clock-history
+            |  No recent sync activity
+        .mt-3
+          button.btn.btn-outline-secondary.btn-sm#refresh-activity
+            i.bi.bi-arrow-clockwise
+            |  Refresh
+
+javascript:
+  | // Real-time sync status updates
+  | document.addEventListener('DOMContentLoaded', function() {
+  |   // Set up WebSocket connection for real-time updates
+  |   const syncChannel = new BroadcastChannel('sync_updates');
+  |   
+  |   syncChannel.addEventListener('message', function(event) {
+  |     const data = event.data;
+  |     updateSyncActivity(data);
+  |   });
+  |   
+  |   // Refresh activity button
+  |   document.getElementById('refresh-activity').addEventListener('click', function() {
+  |     fetch('/sync/status')
+  |       .then(response => response.json())
+  |       .then(data => {
+  |         updateSyncStatus(data);
+  |       });
+  |   });
+  |   
+  |   // Auto-refresh every 30 seconds
+  |   setInterval(function() {
+  |     fetch('/sync/status')
+  |       .then(response => response.json())
+  |       .then(data => {
+  |         updateSyncStatus(data);
+  |       });
+  |   }, 30000);
+  | });
+  | 
+  | function updateSyncActivity(data) {
+  |   const activityDiv = document.getElementById('sync-activity');
+  |   const timestamp = new Date(data.timestamp).toLocaleString();
+  |   
+  |   let statusClass = 'text-muted';
+  |   let statusIcon = 'bi-clock';
+  |   
+  |   switch(data.status) {
+  |     case 'completed':
+  |       statusClass = 'text-success';
+  |       statusIcon = 'bi-check-circle';
+  |       break;
+  |     case 'failed':
+  |       statusClass = 'text-danger';
+  |       statusIcon = 'bi-x-circle';
+  |       break;
+  |     case 'running':
+  |       statusClass = 'text-primary';
+  |       statusIcon = 'bi-arrow-clockwise';
+  |       break;
+  |   }
+  |   
+  |   const activityItem = document.createElement('div');
+  |   activityItem.className = `alert alert-${data.status === 'completed' ? 'success' : data.status === 'failed' ? 'danger' : 'info'} alert-dismissible fade show`;
+  |   activityItem.innerHTML = `
+  |     <i class="bi ${statusIcon}"></i>
+  |     <strong>${data.game_type.toUpperCase()}</strong> sync ${data.status}
+  |     ${data.records_added ? `(${data.records_added} records added)` : ''}
+  |     ${data.error ? `- ${data.error}` : ''}
+  |     <small class="text-muted">${timestamp}</small>
+  |     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  |   `;
+  |   
+  |   activityDiv.insertBefore(activityItem, activityDiv.firstChild);
+  |   
+  |   // Keep only last 5 activities
+  |   const activities = activityDiv.querySelectorAll('.alert');
+  |   if (activities.length > 5) {
+  |     activities[activities.length - 1].remove();
+  |   }
+  | }
+  | 
+  | function updateSyncStatus(data) {
+  |   // Update status badges and last sync times
+  |   Object.keys(data).forEach(gameType => {
+  |     if (data[gameType].last_sync) {
+  |       const lastSyncElement = document.querySelector(`[data-game="${gameType}"] .last-sync`);
+  |       if (lastSyncElement) {
+  |         lastSyncElement.textContent = new Date(data[gameType].last_sync).toLocaleString();
+  |       }
+  |     }
+  |   });
+  | }

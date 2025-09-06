@@ -40,4 +40,10 @@ Rails.application.routes.draw do
   get 'vietlot55', to: 'dashboard#vietlot55'
   get 'statistics', to: 'dashboard#statistics'
   get 'predictions', to: 'dashboard#predictions'
+  
+  # Sync routes
+  get 'sync', to: 'sync#index'
+  post 'sync/manual', to: 'sync#manual_sync', as: 'manual_sync'
+  post 'sync/force', to: 'sync#force_sync', as: 'force_sync'
+  get 'sync/status', to: 'sync#sync_status', as: 'sync_status'
 end

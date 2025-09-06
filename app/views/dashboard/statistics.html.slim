@@ -1,83 +1,237 @@
 .row
   .col-12
-    h1.display-5.mb-4
-      i.bi.bi-bar-chart.text-primary
-      |  Statistics Analysis
-    p.lead.text-muted
-      | Game Type: 
-      strong = @game_type.upcase
+    h1.display-4.text-center.mb-4
+      i.bi.bi-bar-chart
+      |  Statistics Dashboard
+    p.lead.text-center.text-muted.mb-5
+      | Comprehensive lottery statistics and analysis
 
 .row.mb-4
-  .col-md-4
+  .col-md-6
+    .card.card-hover
+      .card-header.bg-primary.text-white
+        h5.card-title.mb-0
+          i.bi.bi-4-circle
+          |  Vietlot 45 Statistics
+      .card-body
+        .row.text-center
+          .col-4
+            h4.text-primary = @vietlot45_stats[:total_draws]
+            p.text-muted Total Draws
+          .col-4
+            h4.text-success = @vietlot45_stats[:latest_draw_date]
+            p.text-muted Latest Draw
+          .col-4
+            h4.text-info = @vietlot45_stats[:avg_prize]
+            p.text-muted Avg Prize
+        .mt-3
+          h6.text-muted Most Frequent Numbers
+          .row
+            - @vietlot45_stats[:top_numbers].each do |number, count|
+              .col-2.mb-2
+                .stat-number
+                  = number
+                  .stat-count = count
+      .card-footer
+        = link_to "View Detailed Stats", api_v1_day_of_week_summaries_path(game_type: 'vietlot45'), class: "btn btn-primary btn-sm"
+  
+  .col-md-6
+    .card.card-hover
+      .card-header.bg-success.text-white
+        h5.card-title.mb-0
+          i.bi.bi-5-circle
+          |  Vietlot 55 Statistics
+      .card-body
+        .row.text-center
+          .col-4
+            h4.text-primary = @vietlot55_stats[:total_draws]
+            p.text-muted Total Draws
+          .col-4
+            h4.text-success = @vietlot55_stats[:latest_draw_date]
+            p.text-muted Latest Draw
+          .col-4
+            h4.text-info = @vietlot55_stats[:avg_prize]
+            p.text-muted Avg Prize
+        .mt-3
+          h6.text-muted Most Frequent Numbers
+          .row
+            - @vietlot55_stats[:top_numbers].each do |number, count|
+              .col-2.mb-2
+                .stat-number
+                  = number
+                  .stat-count = count
+      .card-footer
+        = link_to "View Detailed Stats", api_v1_day_of_week_summaries_path(game_type: 'vietlot55'), class: "btn btn-success btn-sm"
+
+.row.mb-4
+  .col-md-6
     .card
       .card-header
         h5.card-title.mb-0
           i.bi.bi-calendar-week
-          |  Day of Week Statistics
+          |  Day of Week Analysis - Vietlot 45
       .card-body
-        - if @day_of_week_stats.any?
-          .table-responsive
-            table.table.table-sm
-              thead
-                tr
-                  th Day
-                  th Count
-              tbody
-                - @day_of_week_stats.each do |day, count|
-                  tr
-                    td = day.capitalize
-                    td = count
-        - else
-          p.text-muted No day of week statistics available
+        canvas#vietlot45-day-chart width="400" height="200"
+  
+  .col-md-6
+    .card
+      .card-header
+        h5.card-title.mb-0
+          i.bi.bi-calendar-week
+          |  Day of Week Analysis - Vietlot 55
+      .card-body
+        canvas#vietlot55-day-chart width="400" height="200"
 
-  .col-md-4
+.row.mb-4
+  .col-md-6
     .card
       .card-header
         h5.card-title.mb-0
           i.bi.bi-calendar-month
-          |  Month Statistics
+          |  Monthly Analysis - Vietlot 45
       .card-body
-        - if @month_stats.any?
-          .table-responsive
-            table.table.table-sm
-              thead
-                tr
-                  th Month
-                  th Count
-              tbody
-                - @month_stats.each do |month, count|
-                  tr
-                    td = Date::MONTHNAMES[month] || month
-                    td = count
-        - else
-          p.text-muted No month statistics available
-
-  .col-md-4
+        canvas#vietlot45-month-chart width="400" height="200"
+  
+  .col-md-6
     .card
       .card-header
         h5.card-title.mb-0
-          i.bi.bi-123
-          |  Even/Odd Statistics
+          i.bi.bi-calendar-month
+          |  Monthly Analysis - Vietlot 55
       .card-body
-        - if @even_odd_stats.any?
-          .table-responsive
-            table.table.table-sm
-              thead
-                tr
-                  th Type
-                  th Count
-              tbody
-                - @even_odd_stats.each do |type, count|
-                  tr
-                    td = type.capitalize
-                    td = count
-        - else
-          p.text-muted No even/odd statistics available
+        canvas#vietlot55-month-chart width="400" height="200"
 
-.row.mt-4
+.row
   .col-12
     .card
-      .card-body.text-center
-        = link_to "Back to Dashboard", dashboard_path, class: "btn btn-primary me-2"
-        = link_to "View Predictions", predictions_path(game_type: @game_type), class: "btn btn-success me-2"
-        = link_to "API Data", api_v1_lottery_draws_path, class: "btn btn-info"
+      .card-header
+        h5.card-title.mb-0
+          i.bi.bi-graph-up
+          |  Number Frequency Analysis
+      .card-body
+        .row
+          .col-md-6
+            h6.text-muted Vietlot 45 - Number Distribution
+            canvas#vietlot45-frequency-chart width="400" height="300"
+          .col-md-6
+            h6.text-muted Vietlot 55 - Number Distribution
+            canvas#vietlot55-frequency-chart width="400" height="300"
+
+style
+  | .stat-number {
+  |   display: inline-block;
+  |   width: 40px;
+  |   height: 40px;
+  |   line-height: 40px;
+  |   text-align: center;
+  |   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  |   color: white;
+  |   border-radius: 50%;
+  |   margin: 2px;
+  |   font-weight: bold;
+  |   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  |   position: relative;
+  | }
+  | 
+  | .stat-count {
+  |   position: absolute;
+  |   bottom: -15px;
+  |   left: 50%;
+  |   transform: translateX(-50%);
+  |   font-size: 0.6em;
+  |   background: rgba(0,0,0,0.7);
+  |   color: white;
+  |   padding: 1px 3px;
+  |   border-radius: 3px;
+  | }
+
+javascript:
+  | // Chart.js configurations
+  | document.addEventListener('DOMContentLoaded', function() {
+  |   // Day of week charts
+  |   createDayOfWeekChart('vietlot45-day-chart', #{@vietlot45_day_stats.to_json.html_safe});
+  |   createDayOfWeekChart('vietlot55-day-chart', #{@vietlot55_day_stats.to_json.html_safe});
+  |   
+  |   // Monthly charts
+  |   createMonthlyChart('vietlot45-month-chart', #{@vietlot45_month_stats.to_json.html_safe});
+  |   createMonthlyChart('vietlot55-month-chart', #{@vietlot55_month_stats.to_json.html_safe});
+  |   
+  |   // Frequency charts
+  |   createFrequencyChart('vietlot45-frequency-chart', #{@vietlot45_frequency_stats.to_json.html_safe});
+  |   createFrequencyChart('vietlot55-frequency-chart', #{@vietlot55_frequency_stats.to_json.html_safe});
+  | });
+  | 
+  | function createDayOfWeekChart(canvasId, data) {
+  |   const ctx = document.getElementById(canvasId).getContext('2d');
+  |   new Chart(ctx, {
+  |     type: 'bar',
+  |     data: {
+  |       labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+  |       datasets: [{
+  |         label: 'Average Draws',
+  |         data: data,
+  |         backgroundColor: 'rgba(54, 162, 235, 0.2)',
+  |         borderColor: 'rgba(54, 162, 235, 1)',
+  |         borderWidth: 1
+  |       }]
+  |     },
+  |     options: {
+  |       responsive: true,
+  |       scales: {
+  |         y: {
+  |           beginAtZero: true
+  |         }
+  |       }
+  |     }
+  |   });
+  | }
+  | 
+  | function createMonthlyChart(canvasId, data) {
+  |   const ctx = document.getElementById(canvasId).getContext('2d');
+  |   new Chart(ctx, {
+  |     type: 'line',
+  |     data: {
+  |       labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+  |       datasets: [{
+  |         label: 'Monthly Draws',
+  |         data: data,
+  |         borderColor: 'rgba(75, 192, 192, 1)',
+  |         backgroundColor: 'rgba(75, 192, 192, 0.2)',
+  |         tension: 0.1
+  |       }]
+  |     },
+  |     options: {
+  |       responsive: true,
+  |       scales: {
+  |         y: {
+  |           beginAtZero: true
+  |         }
+  |       }
+  |     }
+  |   });
+  | }
+  | 
+  | function createFrequencyChart(canvasId, data) {
+  |   const ctx = document.getElementById(canvasId).getContext('2d');
+  |   new Chart(ctx, {
+  |     type: 'bar',
+  |     data: {
+  |       labels: data.labels,
+  |       datasets: [{
+  |         label: 'Frequency',
+  |         data: data.values,
+  |         backgroundColor: 'rgba(255, 99, 132, 0.2)',
+  |         borderColor: 'rgba(255, 99, 132, 1)',
+  |         borderWidth: 1
+  |       }]
+  |     },
+  |     options: {
+  |       responsive: true,
+  |       scales: {
+  |         y: {
+  |           beginAtZero: true
+  |         }
+  |       }
+  |     }
+  |   });
+  | }

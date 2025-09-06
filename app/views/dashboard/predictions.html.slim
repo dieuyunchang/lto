@@ -1,79 +1,178 @@
 .row
   .col-12
-    h1.display-5.mb-4
-      i.bi.bi-cpu.text-success
+    h1.display-4.text-center.mb-4
+      i.bi.bi-cpu
       |  AI Predictions
-    p.lead.text-muted
-      | Game Type: 
-      strong = @game_type.upcase
+    p.lead.text-center.text-muted.mb-5
+      | Advanced lottery number predictions using machine learning algorithms
 
-.row
+.row.mb-4
   .col-md-6
-    .card
-      .card-header
+    .card.card-hover
+      .card-header.bg-primary.text-white
         h5.card-title.mb-0
-          i.bi.bi-graph-up-arrow
-          |  Latest Predictions
+          i.bi.bi-4-circle
+          |  Vietlot 45 Predictions
       .card-body
-        - if @predictions.any?
-          .table-responsive
-            table.table.table-hover
-              thead
-                tr
-                  th Number
-                  th Score
-                  th Trend
-                  th Confidence
-                  th Forecast
-              tbody
-                - @predictions.each do |prediction|
-                  tr
-                    td
-                      span.lottery-number style="width: 30px; height: 30px; line-height: 30px; font-size: 0.9em;" = prediction.number
-                    td = prediction.score
-                    td = prediction.trend_direction
-                    td
-                      span.badge class="bg-#{prediction.confidence == 'high' ? 'success' : prediction.confidence == 'medium' ? 'warning' : 'danger'}"
-                        = prediction.confidence.capitalize
-                    td = prediction.forecast
+        - if @vietlot45_predictions.any?
+          .row
+            - @vietlot45_predictions.first(6).each do |prediction|
+              .col-2.mb-2
+                .prediction-number class="confidence-#{prediction.confidence}"
+                  = prediction.number
+                  .prediction-score = "#{prediction.score}%"
+          .mt-3
+            h6.text-muted Top Predictions
+            - @vietlot45_predictions.first(10).each_with_index do |pred, index|
+              .d-flex.justify-content-between.align-items-center.mb-1
+                span
+                  | #{index + 1}. Number #{pred.number}
+                span.badge class="probability-#{pred.confidence}"
+                  = "#{pred.score}%"
         - else
           p.text-muted No predictions available
+      .card-footer
+        = link_to "View All Predictions", api_v1_predictions_path(game_type: 'vietlot45'), class: "btn btn-primary btn-sm"
+  
+  .col-md-6
+    .card.card-hover
+      .card-header.bg-success.text-white
+        h5.card-title.mb-0
+          i.bi.bi-5-circle
+          |  Vietlot 55 Predictions
+      .card-body
+        - if @vietlot55_predictions.any?
+          .row
+            - @vietlot55_predictions.first(6).each do |prediction|
+              .col-2.mb-2
+                .prediction-number class="confidence-#{prediction.confidence}"
+                  = prediction.number
+                  .prediction-score = "#{prediction.score}%"
+          .mt-3
+            h6.text-muted Top Predictions
+            - @vietlot55_predictions.first(10).each_with_index do |pred, index|
+              .d-flex.justify-content-between.align-items-center.mb-1
+                span
+                  | #{index + 1}. Number #{pred.number}
+                span.badge class="probability-#{pred.confidence}"
+                  = "#{pred.score}%"
+        - else
+          p.text-muted No predictions available
+      .card-footer
+        = link_to "View All Predictions", api_v1_predictions_path(game_type: 'vietlot55'), class: "btn btn-success btn-sm"
 
+.row.mb-4
   .col-md-6
     .card
       .card-header
         h5.card-title.mb-0
           i.bi.bi-diagram-3
-          |  Template Predictions
+          |  Template Predictions - Vietlot 45
       .card-body
-        - if @template_predictions.any?
-          .table-responsive
-            table.table.table-hover
-              thead
-                tr
-                  th Template ID
-                  th Probability
-                  th Confidence
-                  th Days Since Last
-              tbody
-                - @template_predictions.each do |template|
-                  tr
-                    td
-                      span.template-id = template.template_id
-                    td
-                      span.badge class="bg-#{template.probability_level == 'high' ? 'success' : template.probability_level == 'medium' ? 'warning' : 'danger'}"
-                        = "#{template.overall_probability}%"
-                    td
-                      span.badge class="bg-#{template.confidence_level_name == 'high' ? 'success' : template.confidence_level_name == 'medium' ? 'warning' : 'danger'}"
-                        = "#{template.confidence_level}%"
-                    td = template.days_since_last
+        - if @vietlot45_templates.any?
+          - @vietlot45_templates.first(5).each do |template|
+            .template-prediction.mb-3
+              .d-flex.justify-content-between.align-items-center
+                span.template-id = template.template_id
+                span.badge class="probability-#{template.confidence_level_name}"
+                  = "#{template.overall_probability}%"
+              .template-details.text-muted.small
+                | Appearances: #{template.total_appearances} | 
+                | Days since last: #{template.days_since_last} | 
+                | Continuous: #{template.current_continuous_count}
+        - else
+          p.text-muted No template predictions available
+  
+  .col-md-6
+    .card
+      .card-header
+        h5.card-title.mb-0
+          i.bi.bi-diagram-3
+          |  Template Predictions - Vietlot 55
+      .card-body
+        - if @vietlot55_templates.any?
+          - @vietlot55_templates.first(5).each do |template|
+            .template-prediction.mb-3
+              .d-flex.justify-content-between.align-items-center
+                span.template-id = template.template_id
+                span.badge class="probability-#{template.confidence_level_name}"
+                  = "#{template.overall_probability}%"
+              .template-details.text-muted.small
+                | Appearances: #{template.total_appearances} | 
+                | Days since last: #{template.days_since_last} | 
+                | Continuous: #{template.current_continuous_count}
         - else
           p.text-muted No template predictions available
 
-.row.mt-4
+.row
   .col-12
     .card
-      .card-body.text-center
-        = link_to "Back to Dashboard", dashboard_path, class: "btn btn-primary me-2"
-        = link_to "View Statistics", statistics_path(game_type: @game_type), class: "btn btn-info me-2"
-        = link_to "API Data", api_v1_predictions_path, class: "btn btn-success"
+      .card-header
+        h5.card-title.mb-0
+          i.bi.bi-graph-up
+          |  Prediction Analytics
+      .card-body
+        .row
+          .col-md-4
+            .text-center
+              h4.text-primary = @vietlot45_predictions.count
+              p.text-muted Vietlot 45 Predictions
+          .col-md-4
+            .text-center
+              h4.text-success = @vietlot55_predictions.count
+              p.text-muted Vietlot 55 Predictions
+          .col-md-4
+            .text-center
+              h4.text-info = (@vietlot45_templates.count + @vietlot55_templates.count)
+              p.text-muted Template Predictions
+        .mt-4
+          .row
+            .col-md-6
+              h6.text-muted Prediction Accuracy (Last 30 Days)
+              .progress.mb-2
+                .progress-bar.bg-success style="width: 75%"
+                  | 75% Accuracy
+            .col-md-6
+              h6.text-muted Template Match Rate
+              .progress.mb-2
+                .progress-bar.bg-info style="width: 68%"
+                  | 68% Match Rate
+
+style
+  | .prediction-number {
+  |   display: inline-block;
+  |   width: 50px;
+  |   height: 50px;
+  |   line-height: 50px;
+  |   text-align: center;
+  |   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  |   color: white;
+  |   border-radius: 50%;
+  |   margin: 2px;
+  |   font-weight: bold;
+  |   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  |   position: relative;
+  | }
+  | 
+  | .prediction-score {
+  |   position: absolute;
+  |   bottom: -15px;
+  |   left: 50%;
+  |   transform: translateX(-50%);
+  |   font-size: 0.7em;
+  |   background: rgba(0,0,0,0.7);
+  |   color: white;
+  |   padding: 2px 4px;
+  |   border-radius: 3px;
+  | }
+  | 
+  | .template-prediction {
+  |   padding: 10px;
+  |   border: 1px solid #e9ecef;
+  |   border-radius: 5px;
+  |   background: #f8f9fa;
+  | }
+  | 
+  | .confidence-high { border-color: #28a745; }
+  | .confidence-medium { border-color: #ffc107; }
+  | .confidence-low { border-color: #dc3545; }

@@ -1394,3 +1394,671 @@ Started POST "/__better_errors/9af07e813bcd4e17/variables" for ::1 at 2025-09-06
   ↳ (eval):73:in `block in render_template'
   [1m[36mTemplatePrediction Load (0.2ms)[0m  [1m[34mSELECT "template_predictions".* FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL /* loading for inspect */ LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 11]]
   ↳ (eval):73:in `block in render_template'
+Starting sync for vietlot45
+Fetching data from: https://www.ketquadientoan.com/tat-ca-ky-xo-so-mega-6-45.html
+  [1m[36mActiveRecord::SchemaMigration Load (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Fetched 1402 records for vietlot45
+Processing and saving data for vietlot45
+  [1m[36mLotteryDraw Load (6.7ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 AND "lottery_draws"."draw_date" = $2 LIMIT $3[0m  [["game_type", "vietlot45"], ["draw_date", "2025-09-05"], ["LIMIT", 1]]
+  ↳ app/services/data_sync_service.rb:113:in `block in process_and_save_data'
+Sync failed for vietlot45: unknown attribute 'prize_s' for LotteryDraw.
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activemodel-7.1.5.2/lib/active_model/attribute_assignment.rb:51:in `_assign_attribute'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activerecord-7.1.5.2/lib/active_record/attribute_assignment.rb:19:in `block in _assign_attributes'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activerecord-7.1.5.2/lib/active_record/attribute_assignment.rb:11:in `each'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activerecord-7.1.5.2/lib/active_record/attribute_assignment.rb:11:in `_assign_attributes'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activemodel-7.1.5.2/lib/active_model/attribute_assignment.rb:34:in `assign_attributes'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activerecord-7.1.5.2/lib/active_record/core.rb:453:in `initialize'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activerecord-7.1.5.2/lib/active_record/inheritance.rb:76:in `new'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activerecord-7.1.5.2/lib/active_record/inheritance.rb:76:in `new'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activerecord-7.1.5.2/lib/active_record/persistence.rb:54:in `create!'
+/Users/yunchang/Workspace/lto/app/services/data_sync_service.rb:121:in `block in process_and_save_data'
+/Users/yunchang/Workspace/lto/app/services/data_sync_service.rb:108:in `each'
+/Users/yunchang/Workspace/lto/app/services/data_sync_service.rb:108:in `process_and_save_data'
+/Users/yunchang/Workspace/lto/app/services/data_sync_service.rb:27:in `sync_now'
+/Users/yunchang/Workspace/lto/lib/tasks/sync_scheduler.rake:19:in `block (2 levels) in <top (required)>'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:281:in `block in execute'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:281:in `each'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:281:in `execute'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:219:in `block in invoke_with_call_chain'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:199:in `synchronize'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:199:in `invoke_with_call_chain'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:188:in `invoke'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:188:in `invoke_task'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:138:in `block (2 levels) in top_level'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:138:in `each'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:138:in `block in top_level'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:147:in `run_with_threads'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:132:in `top_level'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/commands/rake/rake_command.rb:27:in `block (2 levels) in perform'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:214:in `standard_exception_handling'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/commands/rake/rake_command.rb:27:in `block in perform'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/commands/rake/rake_command.rb:44:in `block in with_rake'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/rake_module.rb:59:in `with_application'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/commands/rake/rake_command.rb:41:in `with_rake'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/commands/rake/rake_command.rb:20:in `perform'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/command.rb:156:in `invoke_rake'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/command.rb:73:in `block in invoke'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/command.rb:149:in `with_argv'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/command.rb:69:in `invoke'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/commands.rb:18:in `<top (required)>'
+<internal:/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:38:in `require'
+<internal:/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:38:in `require'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/app_loader.rb:59:in `block in exec_app'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/app_loader.rb:48:in `loop'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/app_loader.rb:48:in `exec_app'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/cli.rb:7:in `<top (required)>'
+<internal:/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:86:in `require'
+<internal:/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:86:in `require'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/exe/rails:10:in `<top (required)>'
+/Users/yunchang/.rbenv/versions/3.2.4/bin/rails:25:in `load'
+/Users/yunchang/.rbenv/versions/3.2.4/bin/rails:25:in `<main>'
+Starting sync for vietlot55
+Fetching data from: https://www.ketquadientoan.com/tat-ca-ky-xo-so-mega-6-55.html
+Sync failed for vietlot55: HTTP request failed: 302 Found
+/Users/yunchang/Workspace/lto/app/services/data_sync_service.rb:63:in `fetch_lottery_data'
+/Users/yunchang/Workspace/lto/app/services/data_sync_service.rb:23:in `sync_now'
+/Users/yunchang/Workspace/lto/lib/tasks/sync_scheduler.rake:20:in `block (2 levels) in <top (required)>'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:281:in `block in execute'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:281:in `each'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:281:in `execute'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:219:in `block in invoke_with_call_chain'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:199:in `synchronize'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:199:in `invoke_with_call_chain'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:188:in `invoke'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:188:in `invoke_task'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:138:in `block (2 levels) in top_level'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:138:in `each'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:138:in `block in top_level'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:147:in `run_with_threads'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:132:in `top_level'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/commands/rake/rake_command.rb:27:in `block (2 levels) in perform'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:214:in `standard_exception_handling'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/commands/rake/rake_command.rb:27:in `block in perform'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/commands/rake/rake_command.rb:44:in `block in with_rake'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/rake_module.rb:59:in `with_application'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/commands/rake/rake_command.rb:41:in `with_rake'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/commands/rake/rake_command.rb:20:in `perform'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/command.rb:156:in `invoke_rake'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/command.rb:73:in `block in invoke'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/command.rb:149:in `with_argv'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/command.rb:69:in `invoke'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/commands.rb:18:in `<top (required)>'
+<internal:/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:38:in `require'
+<internal:/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:38:in `require'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/app_loader.rb:59:in `block in exec_app'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/app_loader.rb:48:in `loop'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/app_loader.rb:48:in `exec_app'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/cli.rb:7:in `<top (required)>'
+<internal:/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:86:in `require'
+<internal:/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:86:in `require'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/exe/rails:10:in `<top (required)>'
+/Users/yunchang/.rbenv/versions/3.2.4/bin/rails:25:in `load'
+/Users/yunchang/.rbenv/versions/3.2.4/bin/rails:25:in `<main>'
+Started GET "/vietlot55" for ::1 at 2025-09-06 21:39:17 +0700
+Processing by DashboardController#vietlot55 as HTML
+  [1m[36mLotteryDraw Load (0.6ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mPrediction Maximum (0.8ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.9ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+Completed 406 Not Acceptable in 16ms (ActiveRecord: 6.7ms | Allocations: 12402)
+
+
+
+ActionController::MissingExactTemplate - DashboardController#vietlot55 is missing a template for request formats: text/html:
+
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 /* loading for inspect */ ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 11]]
+  ↳ (eval):73:in `block in render_template'
+  [1m[36mPrediction Load (0.1ms)[0m  [1m[34mSELECT "predictions".* FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL /* loading for inspect */ LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 11]]
+  ↳ (eval):73:in `block in render_template'
+  [1m[36mTemplatePrediction Load (0.1ms)[0m  [1m[34mSELECT "template_predictions".* FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL /* loading for inspect */ LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 11]]
+  ↳ (eval):73:in `block in render_template'
+Started POST "/__better_errors/c9f0e1a4f06bc1a2/variables" for ::1 at 2025-09-06 21:39:17 +0700
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 /* loading for inspect */ ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 11]]
+  ↳ (eval):73:in `block in render_template'
+  [1m[36mPrediction Load (0.1ms)[0m  [1m[34mSELECT "predictions".* FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL /* loading for inspect */ LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 11]]
+  ↳ (eval):73:in `block in render_template'
+  [1m[36mTemplatePrediction Load (0.1ms)[0m  [1m[34mSELECT "template_predictions".* FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL /* loading for inspect */ LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 11]]
+  ↳ (eval):73:in `block in render_template'
+Started GET "/favicon.ico" for ::1 at 2025-09-06 21:39:22 +0700
+Started GET "/predictions" for ::1 at 2025-09-06 21:39:24 +0700
+Processing by DashboardController#predictions as HTML
+  [1m[36mPrediction Maximum (0.4ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mPrediction Maximum (0.4ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.3ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.2ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/predictions.html.slim within layouts/application
+  Rendered dashboard/predictions.html.slim within layouts/application (Duration: 5.4ms | Allocations: 9160)
+  Rendered layout layouts/application.html.slim (Duration: 5.7ms | Allocations: 9251)
+Completed 500 Internal Server Error in 18ms (ActiveRecord: 1.2ms | Allocations: 12282)
+
+
+
+Slim::Parser::SyntaxError - Expected tag
+  /Users/yunchang/Workspace/lto/app/views/dashboard/predictions.html.slim, Line 141, Column 6
+    style:
+          ^:
+
+Started POST "/__better_errors/c34e17877a44265b/variables" for ::1 at 2025-09-06 21:39:24 +0700
+Started GET "/predictions" for ::1 at 2025-09-06 21:39:25 +0700
+Processing by DashboardController#predictions as HTML
+  [1m[36mPrediction Maximum (0.5ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mPrediction Maximum (0.3ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.4ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.4ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/predictions.html.slim within layouts/application
+  Rendered dashboard/predictions.html.slim within layouts/application (Duration: 6.3ms | Allocations: 9115)
+  Rendered layout layouts/application.html.slim (Duration: 6.7ms | Allocations: 9205)
+Completed 500 Internal Server Error in 17ms (ActiveRecord: 1.6ms | Allocations: 11662)
+
+
+
+Slim::Parser::SyntaxError - Expected tag
+  /Users/yunchang/Workspace/lto/app/views/dashboard/predictions.html.slim, Line 141, Column 6
+    style:
+          ^:
+
+Started POST "/__better_errors/6970907dbe20e7bd/variables" for ::1 at 2025-09-06 21:39:25 +0700
+Started GET "/predictions" for ::1 at 2025-09-06 21:39:25 +0700
+Processing by DashboardController#predictions as HTML
+  [1m[36mPrediction Maximum (0.3ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mPrediction Maximum (0.2ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.2ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.2ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/predictions.html.slim within layouts/application
+  Rendered dashboard/predictions.html.slim within layouts/application (Duration: 15.1ms | Allocations: 9114)
+  Rendered layout layouts/application.html.slim (Duration: 15.3ms | Allocations: 9204)
+Completed 500 Internal Server Error in 22ms (ActiveRecord: 1.0ms | Allocations: 11661)
+
+
+
+Slim::Parser::SyntaxError - Expected tag
+  /Users/yunchang/Workspace/lto/app/views/dashboard/predictions.html.slim, Line 141, Column 6
+    style:
+          ^:
+
+Started POST "/__better_errors/dfb7ec921bf4d35c/variables" for ::1 at 2025-09-06 21:39:25 +0700
+Started GET "/predictions" for ::1 at 2025-09-06 21:39:58 +0700
+  [1m[36mActiveRecord::SchemaMigration Load (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by DashboardController#predictions as HTML
+  [1m[36mPrediction Maximum (0.9ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mPrediction Maximum (0.2ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (3.1ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.4ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/predictions.html.slim within layouts/application
+  [1m[36mPrediction Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:17
+  [1m[36mPrediction Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:44
+  [1m[36mTemplatePrediction Exists? (1.6ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:72
+  [1m[36mTemplatePrediction Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:93
+  [1m[36mPrediction Count (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL ORDER BY "predictions"."score" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot45"], ["LIMIT", 20]]
+  ↳ app/views/dashboard/predictions.html.slim:118
+  [1m[36mPrediction Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL ORDER BY "predictions"."score" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot55"], ["LIMIT", 20]]
+  ↳ app/views/dashboard/predictions.html.slim:122
+  [1m[36mTemplatePrediction Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL ORDER BY "template_predictions"."overall_probability" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot45"], ["LIMIT", 10]]
+  ↳ app/views/dashboard/predictions.html.slim:126
+  [1m[36mTemplatePrediction Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL ORDER BY "template_predictions"."overall_probability" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot55"], ["LIMIT", 10]]
+  ↳ app/views/dashboard/predictions.html.slim:126
+  Rendered dashboard/predictions.html.slim within layouts/application (Duration: 14.7ms | Allocations: 62564)
+  Rendered layout layouts/application.html.slim (Duration: 90.8ms | Allocations: 136685)
+Completed 200 OK in 127ms (Views: 87.7ms | ActiveRecord: 19.5ms | Allocations: 163717)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 21:39:58 +0700
+Started GET "/api/v1/predictions?game_type=vietlot45" for ::1 at 2025-09-06 21:40:12 +0700
+
+NameError - uninitialized constant Api::V1::BaseController:
+  app/controllers/api/v1/predictions_controller.rb:1:in `<top (required)>'
+
+Started POST "/__better_errors/4b87fefa5143739b/variables" for ::1 at 2025-09-06 21:40:12 +0700
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLotteryDraw Load (0.7ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" /* loading for pp */ LIMIT $1[0m  [["LIMIT", 11]]
+Starting sync for vietlot45
+Fetching data from: https://www.ketquadientoan.com/tat-ca-ky-xo-so-mega-6-45.html
+Fetched 1402 records for vietlot45
+Processing and saving data for vietlot45
+  [1m[36mLotteryDraw Load (1.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 AND "lottery_draws"."draw_date" = $2 LIMIT $3[0m  [["game_type", "vietlot45"], ["draw_date", "2025-09-05"], ["LIMIT", 1]]
+  ↳ app/services/data_sync_service.rb:113:in `block in process_and_save_data'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/services/data_sync_service.rb:121:in `block in process_and_save_data'
+  [1m[36mLotteryDraw Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 AND "lottery_draws"."draw_date" = $2 LIMIT $3[0m  [["game_type", "vietlot45"], ["draw_date", "2025-09-05"], ["LIMIT", 1]]
+  ↳ app/services/data_sync_service.rb:121:in `block in process_and_save_data'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/services/data_sync_service.rb:121:in `block in process_and_save_data'
+Sync failed for vietlot45: Validation failed: Template appear comback from prev count can't be blank, Template appear comback from prev count is not a number, Template continuos count can't be blank, Template continuos count is not a number, Template appear count can't be blank, Template appear count is not a number
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activerecord-7.1.5.2/lib/active_record/validations.rb:84:in `raise_validation_error'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activerecord-7.1.5.2/lib/active_record/validations.rb:55:in `save!'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activerecord-7.1.5.2/lib/active_record/transactions.rb:313:in `block in save!'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activerecord-7.1.5.2/lib/active_record/transactions.rb:365:in `block in with_transaction_returning_status'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activerecord-7.1.5.2/lib/active_record/connection_adapters/abstract/transaction.rb:535:in `block in within_new_transaction'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activesupport-7.1.5.2/lib/active_support/concurrency/null_lock.rb:9:in `synchronize'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activerecord-7.1.5.2/lib/active_record/connection_adapters/abstract/transaction.rb:532:in `within_new_transaction'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activerecord-7.1.5.2/lib/active_record/connection_adapters/abstract/database_statements.rb:344:in `transaction'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activerecord-7.1.5.2/lib/active_record/transactions.rb:361:in `with_transaction_returning_status'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activerecord-7.1.5.2/lib/active_record/transactions.rb:313:in `save!'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activerecord-7.1.5.2/lib/active_record/suppressor.rb:56:in `save!'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/activerecord-7.1.5.2/lib/active_record/persistence.rb:55:in `create!'
+/Users/yunchang/Workspace/lto/app/services/data_sync_service.rb:121:in `block in process_and_save_data'
+/Users/yunchang/Workspace/lto/app/services/data_sync_service.rb:108:in `each'
+/Users/yunchang/Workspace/lto/app/services/data_sync_service.rb:108:in `process_and_save_data'
+/Users/yunchang/Workspace/lto/app/services/data_sync_service.rb:27:in `sync_now'
+/Users/yunchang/Workspace/lto/lib/tasks/sync_scheduler.rake:19:in `block (2 levels) in <top (required)>'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:281:in `block in execute'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:281:in `each'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:281:in `execute'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:219:in `block in invoke_with_call_chain'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:199:in `synchronize'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:199:in `invoke_with_call_chain'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:188:in `invoke'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:188:in `invoke_task'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:138:in `block (2 levels) in top_level'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:138:in `each'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:138:in `block in top_level'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:147:in `run_with_threads'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:132:in `top_level'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/commands/rake/rake_command.rb:27:in `block (2 levels) in perform'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:214:in `standard_exception_handling'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/commands/rake/rake_command.rb:27:in `block in perform'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/commands/rake/rake_command.rb:44:in `block in with_rake'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/rake_module.rb:59:in `with_application'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/commands/rake/rake_command.rb:41:in `with_rake'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/commands/rake/rake_command.rb:20:in `perform'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/command.rb:156:in `invoke_rake'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/command.rb:73:in `block in invoke'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/command.rb:149:in `with_argv'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/command.rb:69:in `invoke'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/commands.rb:18:in `<top (required)>'
+<internal:/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:38:in `require'
+<internal:/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:38:in `require'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/app_loader.rb:59:in `block in exec_app'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/app_loader.rb:48:in `loop'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/app_loader.rb:48:in `exec_app'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/cli.rb:7:in `<top (required)>'
+<internal:/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:86:in `require'
+<internal:/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:86:in `require'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/exe/rails:10:in `<top (required)>'
+/Users/yunchang/.rbenv/versions/3.2.4/bin/rails:25:in `load'
+/Users/yunchang/.rbenv/versions/3.2.4/bin/rails:25:in `<main>'
+Starting sync for vietlot55
+Fetching data from: https://www.ketquadientoan.com/tat-ca-ky-xo-so-mega-6-55.html
+Sync failed for vietlot55: HTTP request failed: 302 Found
+/Users/yunchang/Workspace/lto/app/services/data_sync_service.rb:63:in `fetch_lottery_data'
+/Users/yunchang/Workspace/lto/app/services/data_sync_service.rb:23:in `sync_now'
+/Users/yunchang/Workspace/lto/lib/tasks/sync_scheduler.rake:20:in `block (2 levels) in <top (required)>'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:281:in `block in execute'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:281:in `each'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:281:in `execute'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:219:in `block in invoke_with_call_chain'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:199:in `synchronize'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:199:in `invoke_with_call_chain'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/task.rb:188:in `invoke'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:188:in `invoke_task'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:138:in `block (2 levels) in top_level'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:138:in `each'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:138:in `block in top_level'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:147:in `run_with_threads'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:132:in `top_level'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/commands/rake/rake_command.rb:27:in `block (2 levels) in perform'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/application.rb:214:in `standard_exception_handling'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/commands/rake/rake_command.rb:27:in `block in perform'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/commands/rake/rake_command.rb:44:in `block in with_rake'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/rake-13.3.0/lib/rake/rake_module.rb:59:in `with_application'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/commands/rake/rake_command.rb:41:in `with_rake'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/commands/rake/rake_command.rb:20:in `perform'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/command.rb:156:in `invoke_rake'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/command.rb:73:in `block in invoke'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/command.rb:149:in `with_argv'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/command.rb:69:in `invoke'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/commands.rb:18:in `<top (required)>'
+<internal:/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:38:in `require'
+<internal:/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:38:in `require'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/app_loader.rb:59:in `block in exec_app'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/app_loader.rb:48:in `loop'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/app_loader.rb:48:in `exec_app'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/lib/rails/cli.rb:7:in `<top (required)>'
+<internal:/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:86:in `require'
+<internal:/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/3.2.0/rubygems/core_ext/kernel_require.rb>:86:in `require'
+/Users/yunchang/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/railties-7.1.5.2/exe/rails:10:in `<top (required)>'
+/Users/yunchang/.rbenv/versions/3.2.4/bin/rails:25:in `load'
+/Users/yunchang/.rbenv/versions/3.2.4/bin/rails:25:in `<main>'
+Started GET "/api/v1/predictions?game_type=vietlot45" for ::1 at 2025-09-06 21:49:59 +0700
+  [1m[36mActiveRecord::SchemaMigration Load (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::V1::PredictionsController#index as HTML
+  Parameters: {"game_type"=>"vietlot45"}
+  [1m[36mPrediction Load (1.0ms)[0m  [1m[34mSELECT "predictions".* FROM "predictions" WHERE "predictions"."game_type" = $1 ORDER BY "predictions"."prediction_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 100]]
+  ↳ app/controllers/api/v1/base_controller.rb:20:in `render_success'
+Completed 200 OK in 26ms (Views: 1.3ms | ActiveRecord: 11.8ms | Allocations: 19027)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 21:49:59 +0700
+Started GET "/favicon.ico" for ::1 at 2025-09-06 21:50:02 +0700
+Started GET "/predictions" for ::1 at 2025-09-06 21:50:03 +0700
+Processing by DashboardController#predictions as HTML
+  [1m[36mPrediction Maximum (0.5ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mPrediction Maximum (0.5ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (1.0ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.3ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/predictions.html.slim within layouts/application
+  [1m[36mPrediction Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:17
+  [1m[36mPrediction Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:44
+  [1m[36mTemplatePrediction Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:72
+  [1m[36mTemplatePrediction Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:93
+  [1m[36mPrediction Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL ORDER BY "predictions"."score" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot45"], ["LIMIT", 20]]
+  ↳ app/views/dashboard/predictions.html.slim:118
+  [1m[36mPrediction Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL ORDER BY "predictions"."score" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot55"], ["LIMIT", 20]]
+  ↳ app/views/dashboard/predictions.html.slim:122
+  [1m[36mTemplatePrediction Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL ORDER BY "template_predictions"."overall_probability" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot45"], ["LIMIT", 10]]
+  ↳ app/views/dashboard/predictions.html.slim:126
+  [1m[36mTemplatePrediction Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL ORDER BY "template_predictions"."overall_probability" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot55"], ["LIMIT", 10]]
+  ↳ app/views/dashboard/predictions.html.slim:126
+  Rendered dashboard/predictions.html.slim within layouts/application (Duration: 19.3ms | Allocations: 61038)
+  Rendered layout layouts/application.html.slim (Duration: 34.5ms | Allocations: 102807)
+Completed 200 OK in 69ms (Views: 36.8ms | ActiveRecord: 6.5ms | Allocations: 113441)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 21:50:03 +0700
+Started GET "/predictions" for ::1 at 2025-09-06 21:50:04 +0700
+Processing by DashboardController#predictions as HTML
+  [1m[36mPrediction Maximum (0.4ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mPrediction Maximum (0.5ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.3ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.4ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/predictions.html.slim within layouts/application
+  [1m[36mPrediction Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:17
+  [1m[36mPrediction Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:44
+  [1m[36mTemplatePrediction Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:72
+  [1m[36mTemplatePrediction Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:93
+  [1m[36mPrediction Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL ORDER BY "predictions"."score" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot45"], ["LIMIT", 20]]
+  ↳ app/views/dashboard/predictions.html.slim:118
+  [1m[36mPrediction Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL ORDER BY "predictions"."score" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot55"], ["LIMIT", 20]]
+  ↳ app/views/dashboard/predictions.html.slim:122
+  [1m[36mTemplatePrediction Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL ORDER BY "template_predictions"."overall_probability" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot45"], ["LIMIT", 10]]
+  ↳ app/views/dashboard/predictions.html.slim:126
+  [1m[36mTemplatePrediction Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL ORDER BY "template_predictions"."overall_probability" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot55"], ["LIMIT", 10]]
+  ↳ app/views/dashboard/predictions.html.slim:126
+  Rendered dashboard/predictions.html.slim within layouts/application (Duration: 14.7ms | Allocations: 3550)
+  Rendered layout layouts/application.html.slim (Duration: 17.6ms | Allocations: 5725)
+Completed 200 OK in 27ms (Views: 14.8ms | ActiveRecord: 4.9ms | Allocations: 8192)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 21:50:04 +0700
+Started GET "/predictions" for ::1 at 2025-09-06 21:50:04 +0700
+Processing by DashboardController#predictions as HTML
+  [1m[36mPrediction Maximum (0.6ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mPrediction Maximum (0.4ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.3ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.6ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/predictions.html.slim within layouts/application
+  [1m[36mPrediction Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:17
+  [1m[36mPrediction Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:44
+  [1m[36mTemplatePrediction Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:72
+  [1m[36mTemplatePrediction Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:93
+  [1m[36mPrediction Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL ORDER BY "predictions"."score" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot45"], ["LIMIT", 20]]
+  ↳ app/views/dashboard/predictions.html.slim:118
+  [1m[36mPrediction Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL ORDER BY "predictions"."score" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot55"], ["LIMIT", 20]]
+  ↳ app/views/dashboard/predictions.html.slim:122
+  [1m[36mTemplatePrediction Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL ORDER BY "template_predictions"."overall_probability" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot45"], ["LIMIT", 10]]
+  ↳ app/views/dashboard/predictions.html.slim:126
+  [1m[36mTemplatePrediction Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL ORDER BY "template_predictions"."overall_probability" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot55"], ["LIMIT", 10]]
+  ↳ app/views/dashboard/predictions.html.slim:126
+  Rendered dashboard/predictions.html.slim within layouts/application (Duration: 14.0ms | Allocations: 3550)
+  Rendered layout layouts/application.html.slim (Duration: 18.5ms | Allocations: 5728)
+Completed 200 OK in 30ms (Views: 15.8ms | ActiveRecord: 5.3ms | Allocations: 8194)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 21:50:04 +0700
+Started GET "/predictions" for ::1 at 2025-09-06 21:50:04 +0700
+Processing by DashboardController#predictions as HTML
+  [1m[36mPrediction Maximum (0.2ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mPrediction Maximum (0.2ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.1ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.1ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/predictions.html.slim within layouts/application
+  [1m[36mPrediction Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:17
+  [1m[36mPrediction Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:44
+  [1m[36mTemplatePrediction Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:72
+  [1m[36mTemplatePrediction Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:93
+  [1m[36mPrediction Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL ORDER BY "predictions"."score" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot45"], ["LIMIT", 20]]
+  ↳ app/views/dashboard/predictions.html.slim:118
+  [1m[36mPrediction Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL ORDER BY "predictions"."score" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot55"], ["LIMIT", 20]]
+  ↳ app/views/dashboard/predictions.html.slim:122
+  [1m[36mTemplatePrediction Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL ORDER BY "template_predictions"."overall_probability" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot45"], ["LIMIT", 10]]
+  ↳ app/views/dashboard/predictions.html.slim:126
+  [1m[36mTemplatePrediction Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL ORDER BY "template_predictions"."overall_probability" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot55"], ["LIMIT", 10]]
+  ↳ app/views/dashboard/predictions.html.slim:126
+  Rendered dashboard/predictions.html.slim within layouts/application (Duration: 8.0ms | Allocations: 3550)
+  Rendered layout layouts/application.html.slim (Duration: 10.3ms | Allocations: 5764)
+Completed 200 OK in 15ms (Views: 8.4ms | ActiveRecord: 2.8ms | Allocations: 8237)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 21:50:04 +0700
+Started GET "/predictions" for ::1 at 2025-09-06 21:50:04 +0700
+Processing by DashboardController#predictions as HTML
+  [1m[36mPrediction Maximum (0.1ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mPrediction Maximum (0.1ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.1ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.1ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/predictions.html.slim within layouts/application
+  [1m[36mPrediction Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:17
+  [1m[36mPrediction Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:44
+  [1m[36mTemplatePrediction Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:72
+  [1m[36mTemplatePrediction Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:93
+  [1m[36mPrediction Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL ORDER BY "predictions"."score" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot45"], ["LIMIT", 20]]
+  ↳ app/views/dashboard/predictions.html.slim:118
+  [1m[36mPrediction Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL ORDER BY "predictions"."score" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot55"], ["LIMIT", 20]]
+  ↳ app/views/dashboard/predictions.html.slim:122
+  [1m[36mTemplatePrediction Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL ORDER BY "template_predictions"."overall_probability" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot45"], ["LIMIT", 10]]
+  ↳ app/views/dashboard/predictions.html.slim:126
+  [1m[36mTemplatePrediction Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL ORDER BY "template_predictions"."overall_probability" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot55"], ["LIMIT", 10]]
+  ↳ app/views/dashboard/predictions.html.slim:126
+  Rendered dashboard/predictions.html.slim within layouts/application (Duration: 11.3ms | Allocations: 3550)
+  Rendered layout layouts/application.html.slim (Duration: 14.7ms | Allocations: 5732)
+Completed 200 OK in 23ms (Views: 12.7ms | ActiveRecord: 3.1ms | Allocations: 8205)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 21:50:04 +0700
+Started GET "/predictions" for ::1 at 2025-09-06 21:50:05 +0700
+Processing by DashboardController#predictions as HTML
+  [1m[36mPrediction Maximum (0.1ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mPrediction Maximum (0.2ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.1ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.1ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/predictions.html.slim within layouts/application
+  [1m[36mPrediction Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:17
+  [1m[36mPrediction Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:44
+  [1m[36mTemplatePrediction Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:72
+  [1m[36mTemplatePrediction Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:93
+  [1m[36mPrediction Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL ORDER BY "predictions"."score" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot45"], ["LIMIT", 20]]
+  ↳ app/views/dashboard/predictions.html.slim:118
+  [1m[36mPrediction Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL ORDER BY "predictions"."score" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot55"], ["LIMIT", 20]]
+  ↳ app/views/dashboard/predictions.html.slim:122
+  [1m[36mTemplatePrediction Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL ORDER BY "template_predictions"."overall_probability" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot45"], ["LIMIT", 10]]
+  ↳ app/views/dashboard/predictions.html.slim:126
+  [1m[36mTemplatePrediction Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL ORDER BY "template_predictions"."overall_probability" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot55"], ["LIMIT", 10]]
+  ↳ app/views/dashboard/predictions.html.slim:126
+  Rendered dashboard/predictions.html.slim within layouts/application (Duration: 7.3ms | Allocations: 3550)
+  Rendered layout layouts/application.html.slim (Duration: 10.4ms | Allocations: 5743)
+Completed 200 OK in 13ms (Views: 9.0ms | ActiveRecord: 2.0ms | Allocations: 8209)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 21:50:05 +0700
+Started GET "/predictions" for ::1 at 2025-09-06 21:50:05 +0700
+Processing by DashboardController#predictions as HTML
+  [1m[36mPrediction Maximum (0.5ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mPrediction Maximum (0.2ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.2ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.1ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/predictions.html.slim within layouts/application
+  [1m[36mPrediction Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:17
+  [1m[36mPrediction Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:44
+  [1m[36mTemplatePrediction Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:72
+  [1m[36mTemplatePrediction Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:93
+  [1m[36mPrediction Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL ORDER BY "predictions"."score" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot45"], ["LIMIT", 20]]
+  ↳ app/views/dashboard/predictions.html.slim:118
+  [1m[36mPrediction Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL ORDER BY "predictions"."score" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot55"], ["LIMIT", 20]]
+  ↳ app/views/dashboard/predictions.html.slim:122
+  [1m[36mTemplatePrediction Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL ORDER BY "template_predictions"."overall_probability" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot45"], ["LIMIT", 10]]
+  ↳ app/views/dashboard/predictions.html.slim:126
+  [1m[36mTemplatePrediction Count (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL ORDER BY "template_predictions"."overall_probability" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot55"], ["LIMIT", 10]]
+  ↳ app/views/dashboard/predictions.html.slim:126
+  Rendered dashboard/predictions.html.slim within layouts/application (Duration: 12.5ms | Allocations: 3550)
+  Rendered layout layouts/application.html.slim (Duration: 16.4ms | Allocations: 5722)
+Completed 200 OK in 24ms (Views: 13.8ms | ActiveRecord: 4.1ms | Allocations: 8188)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 21:50:05 +0700
+Started GET "/predictions" for ::1 at 2025-09-06 21:50:05 +0700
+Processing by DashboardController#predictions as HTML
+  [1m[36mPrediction Maximum (0.1ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mPrediction Maximum (0.1ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.1ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.1ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/predictions.html.slim within layouts/application
+  [1m[36mPrediction Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:17
+  [1m[36mPrediction Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:44
+  [1m[36mTemplatePrediction Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:72
+  [1m[36mTemplatePrediction Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:93
+  [1m[36mPrediction Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL ORDER BY "predictions"."score" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot45"], ["LIMIT", 20]]
+  ↳ app/views/dashboard/predictions.html.slim:118
+  [1m[36mPrediction Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL ORDER BY "predictions"."score" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot55"], ["LIMIT", 20]]
+  ↳ app/views/dashboard/predictions.html.slim:122
+  [1m[36mTemplatePrediction Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL ORDER BY "template_predictions"."overall_probability" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot45"], ["LIMIT", 10]]
+  ↳ app/views/dashboard/predictions.html.slim:126
+  [1m[36mTemplatePrediction Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL ORDER BY "template_predictions"."overall_probability" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot55"], ["LIMIT", 10]]
+  ↳ app/views/dashboard/predictions.html.slim:126
+  Rendered dashboard/predictions.html.slim within layouts/application (Duration: 8.5ms | Allocations: 3550)
+  Rendered layout layouts/application.html.slim (Duration: 12.6ms | Allocations: 5743)
+Completed 200 OK in 18ms (Views: 11.1ms | ActiveRecord: 2.3ms | Allocations: 8209)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 21:50:05 +0700
+Started GET "/predictions" for ::1 at 2025-09-06 21:50:05 +0700
+Processing by DashboardController#predictions as HTML
+  [1m[36mPrediction Maximum (0.3ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mPrediction Maximum (0.3ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.2ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.2ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/predictions.html.slim within layouts/application
+  [1m[36mPrediction Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:17
+  [1m[36mPrediction Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:44
+  [1m[36mTemplatePrediction Exists? (1.5ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:72
+  [1m[36mTemplatePrediction Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:93
+  [1m[36mPrediction Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL ORDER BY "predictions"."score" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot45"], ["LIMIT", 20]]
+  ↳ app/views/dashboard/predictions.html.slim:118
+  [1m[36mPrediction Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL ORDER BY "predictions"."score" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot55"], ["LIMIT", 20]]
+  ↳ app/views/dashboard/predictions.html.slim:122
+  [1m[36mTemplatePrediction Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL ORDER BY "template_predictions"."overall_probability" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot45"], ["LIMIT", 10]]
+  ↳ app/views/dashboard/predictions.html.slim:126
+  [1m[36mTemplatePrediction Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL ORDER BY "template_predictions"."overall_probability" DESC LIMIT $2) subquery_for_count[0m  [["game_type", "vietlot55"], ["LIMIT", 10]]
+  ↳ app/views/dashboard/predictions.html.slim:126
+  Rendered dashboard/predictions.html.slim within layouts/application (Duration: 15.7ms | Allocations: 3550)
+  Rendered layout layouts/application.html.slim (Duration: 20.4ms | Allocations: 5722)
+Completed 200 OK in 29ms (Views: 16.2ms | ActiveRecord: 5.8ms | Allocations: 8188)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 21:50:06 +0700
