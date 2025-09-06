@@ -1,0 +1,79 @@
+.row
+  .col-12
+    h1.display-5.mb-4
+      i.bi.bi-cpu.text-success
+      |  AI Predictions
+    p.lead.text-muted
+      | Game Type: 
+      strong = @game_type.upcase
+
+.row
+  .col-md-6
+    .card
+      .card-header
+        h5.card-title.mb-0
+          i.bi.bi-graph-up-arrow
+          |  Latest Predictions
+      .card-body
+        - if @predictions.any?
+          .table-responsive
+            table.table.table-hover
+              thead
+                tr
+                  th Number
+                  th Score
+                  th Trend
+                  th Confidence
+                  th Forecast
+              tbody
+                - @predictions.each do |prediction|
+                  tr
+                    td
+                      span.lottery-number style="width: 30px; height: 30px; line-height: 30px; font-size: 0.9em;" = prediction.number
+                    td = prediction.score
+                    td = prediction.trend_direction
+                    td
+                      span.badge class="bg-#{prediction.confidence == 'high' ? 'success' : prediction.confidence == 'medium' ? 'warning' : 'danger'}"
+                        = prediction.confidence.capitalize
+                    td = prediction.forecast
+        - else
+          p.text-muted No predictions available
+
+  .col-md-6
+    .card
+      .card-header
+        h5.card-title.mb-0
+          i.bi.bi-diagram-3
+          |  Template Predictions
+      .card-body
+        - if @template_predictions.any?
+          .table-responsive
+            table.table.table-hover
+              thead
+                tr
+                  th Template ID
+                  th Probability
+                  th Confidence
+                  th Days Since Last
+              tbody
+                - @template_predictions.each do |template|
+                  tr
+                    td
+                      span.template-id = template.template_id
+                    td
+                      span.badge class="bg-#{template.probability_level == 'high' ? 'success' : template.probability_level == 'medium' ? 'warning' : 'danger'}"
+                        = "#{template.overall_probability}%"
+                    td
+                      span.badge class="bg-#{template.confidence_level_name == 'high' ? 'success' : template.confidence_level_name == 'medium' ? 'warning' : 'danger'}"
+                        = "#{template.confidence_level}%"
+                    td = template.days_since_last
+        - else
+          p.text-muted No template predictions available
+
+.row.mt-4
+  .col-12
+    .card
+      .card-body.text-center
+        = link_to "Back to Dashboard", dashboard_path, class: "btn btn-primary me-2"
+        = link_to "View Statistics", statistics_path(game_type: @game_type), class: "btn btn-info me-2"
+        = link_to "API Data", api_v1_predictions_path, class: "btn btn-success"

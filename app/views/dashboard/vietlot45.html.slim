@@ -1,0 +1,131 @@
+.row
+  .col-12
+    h1.display-5.mb-4
+      i.bi.bi-4-circle.text-primary
+      |  Vietlot 45 Analysis
+
+- if @latest_draw
+  .row.mb-4
+    .col-12
+      .card
+        .card-header.bg-primary.text-white
+          h5.card-title.mb-0
+            i.bi.bi-trophy
+            |  Latest Draw
+        .card-body
+          .row
+            .col-md-6
+              h6.text-muted Draw Date
+              h4 = @latest_draw.formatted_date
+              
+              h6.text-muted.mt-3 Winning Numbers
+              .mb-3
+                - @latest_draw.numbers_array.each do |number|
+                  span.lottery-number = number
+              
+              h6.text-muted Template
+              span.template-id = @latest_draw.template_id
+            .col-md-6
+              h6.text-muted Prize Amount
+              h4.text-success = @latest_draw.formatted_prize
+              
+              h6.text-muted.mt-3 Analysis
+              ul.list-unstyled
+                li
+                  strong Total: 
+                  = @latest_draw.total
+                li
+                  strong Even/Odd: 
+                  = @latest_draw.total_even_or_odd.capitalize
+                li
+                  strong Odd Count: 
+                  = @latest_draw.odd_count
+                li
+                  strong Even Count: 
+                  = @latest_draw.even_count
+              
+              h6.text-muted Template Stats
+              ul.list-unstyled
+                li
+                  strong Appear Count: 
+                  = @latest_draw.template_appear_count
+                li
+                  strong Continuous Count: 
+                  = @latest_draw.template_continuos_count
+                li
+                  strong Comeback Count: 
+                  = @latest_draw.template_appear_comback_from_prev_count
+
+.row
+  .col-md-8
+    .card
+      .card-header
+        h5.card-title.mb-0
+          i.bi.bi-clock-history
+          |  Recent Draws
+      .card-body
+        - if @recent_draws.any?
+          .table-responsive
+            table.table.table-hover
+              thead
+                tr
+                  th Date
+                  th Numbers
+                  th Template
+                  th Prize
+                  th Total
+              tbody
+                - @recent_draws.each do |draw|
+                  tr
+                    td = draw.formatted_date
+                    td
+                      - draw.numbers_array.each do |number|
+                        span.lottery-number style="width: 30px; height: 30px; line-height: 30px; font-size: 0.9em;" = number
+                    td
+                      span.template-id = draw.template_id
+                    td = draw.formatted_prize
+                    td = draw.total
+        - else
+          p.text-muted No recent draws available
+  
+  .col-md-4
+    .card
+      .card-header
+        h5.card-title.mb-0
+          i.bi.bi-cpu
+          |  Latest Predictions
+      .card-body
+        - if @latest_predictions.any?
+          .mb-3
+            h6.text-muted Top Predicted Numbers
+            - @latest_predictions.limit(6).each do |prediction|
+              .d-flex.justify-content-between.align-items-center.mb-2
+                span.lottery-number style="width: 30px; height: 30px; line-height: 30px; font-size: 0.9em;" = prediction.number
+                span.badge class="bg-#{prediction.confidence == 'high' ? 'success' : prediction.confidence == 'medium' ? 'warning' : 'danger'}"
+                  = prediction.confidence.capitalize
+                small.text-muted = prediction.trend_direction
+        - else
+          p.text-muted No predictions available
+    
+    .card.mt-3
+      .card-header
+        h5.card-title.mb-0
+          i.bi.bi-diagram-3
+          |  Template Predictions
+      .card-body
+        - if @template_predictions.any?
+          - @template_predictions.limit(5).each do |template|
+            .d-flex.justify-content-between.align-items-center.mb-2
+              span.template-id = template.template_id
+              span.badge class="bg-#{template.probability_level == 'high' ? 'success' : template.probability_level == 'medium' ? 'warning' : 'danger'}"
+                = "#{template.overall_probability}%"
+        - else
+          p.text-muted No template predictions available
+
+.row.mt-4
+  .col-12
+    .card
+      .card-body.text-center
+        = link_to "View All Statistics", statistics_path(game_type: 'vietlot45'), class: "btn btn-primary me-2"
+        = link_to "View All Predictions", predictions_path(game_type: 'vietlot45'), class: "btn btn-success me-2"
+        = link_to "API Data", api_v1_lottery_draws_path(game_type: 'vietlot45'), class: "btn btn-info"

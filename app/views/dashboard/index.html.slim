@@ -1,0 +1,141 @@
+.row
+  .col-12
+    h1.display-4.text-center.mb-4
+      i.bi.bi-graph-up
+      |  Vloto Rails Dashboard
+    p.lead.text-center.text-muted.mb-5
+      | Advanced Lottery Prediction System with AI-Powered Analytics
+
+.row.mb-4
+  .col-md-6
+    .card.card-hover.h-100
+      .card-header.bg-primary.text-white
+        h5.card-title.mb-0
+          i.bi.bi-4-circle
+          |  Vietlot 45
+      .card-body
+        - if @vietlot45_latest
+          h6.text-muted Latest Draw
+          .mb-3
+            strong = @vietlot45_latest.formatted_date
+          .mb-3
+            - @vietlot45_latest.numbers_array.each do |number|
+              span.lottery-number = number
+          .mb-3
+            span.template-id = @vietlot45_latest.template_id
+          .text-muted
+            | Prize: 
+            strong = @vietlot45_latest.formatted_prize
+        - else
+          p.text-muted No data available
+      .card-footer
+        = link_to "View Details", vietlot45_path, class: "btn btn-primary"
+  
+  .col-md-6
+    .card.card-hover.h-100
+      .card-header.bg-success.text-white
+        h5.card-title.mb-0
+          i.bi.bi-5-circle
+          |  Vietlot 55
+      .card-body
+        - if @vietlot55_latest
+          h6.text-muted Latest Draw
+          .mb-3
+            strong = @vietlot55_latest.formatted_date
+          .mb-3
+            - @vietlot55_latest.numbers_array.each do |number|
+              span.lottery-number = number
+          .mb-3
+            span.template-id = @vietlot55_latest.template_id
+          .text-muted
+            | Prize: 
+            strong = @vietlot55_latest.formatted_prize
+        - else
+          p.text-muted No data available
+      .card-footer
+        = link_to "View Details", vietlot55_path, class: "btn btn-success"
+
+.row
+  .col-md-6
+    .card
+      .card-header
+        h5.card-title.mb-0
+          i.bi.bi-clock-history
+          |  Recent Vietlot 45 Draws
+      .card-body
+        - if @vietlot45_recent.any?
+          .table-responsive
+            table.table.table-sm
+              thead
+                tr
+                  th Date
+                  th Numbers
+                  th Template
+              tbody
+                - @vietlot45_recent.each do |draw|
+                  tr
+                    td = draw.formatted_date
+                    td
+                      - draw.numbers_array.each do |number|
+                        span.lottery-number style="width: 25px; height: 25px; line-height: 25px; font-size: 0.8em;" = number
+                    td
+                      span.template-id style="font-size: 0.7em;" = draw.template_id
+        - else
+          p.text-muted No recent draws available
+  
+  .col-md-6
+    .card
+      .card-header
+        h5.card-title.mb-0
+          i.bi.bi-clock-history
+          |  Recent Vietlot 55 Draws
+      .card-body
+        - if @vietlot55_recent.any?
+          .table-responsive
+            table.table.table-sm
+              thead
+                tr
+                  th Date
+                  th Numbers
+                  th Template
+              tbody
+                - @vietlot55_recent.each do |draw|
+                  tr
+                    td = draw.formatted_date
+                    td
+                      - draw.numbers_array.each do |number|
+                        span.lottery-number style="width: 25px; height: 25px; line-height: 25px; font-size: 0.8em;" = number
+                    td
+                      span.template-id style="font-size: 0.7em;" = draw.template_id
+        - else
+          p.text-muted No recent draws available
+
+.row.mt-4
+  .col-12
+    .card
+      .card-header
+        h5.card-title.mb-0
+          i.bi.bi-graph-up-arrow
+          |  Quick Actions
+      .card-body
+        .row
+          .col-md-3
+            = link_to statistics_path, class: "btn btn-outline-primary w-100 mb-2" do
+              i.bi.bi-bar-chart
+              br
+              | Statistics
+          .col-md-3
+            = link_to predictions_path, class: "btn btn-outline-success w-100 mb-2" do
+              i.bi.bi-cpu
+              br
+              | AI Predictions
+          .col-md-3
+            = link_to api_v1_lottery_draws_path, class: "btn btn-outline-info w-100 mb-2" do
+              i.bi.bi-code-slash
+              br
+              | API Data
+          .col-md-3
+            = link_to "/api-docs", class: "btn btn-outline-warning w-100 mb-2" do
+              i.bi.bi-book
+              br
+              | API Docs

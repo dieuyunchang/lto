@@ -1,0 +1,83 @@
+.row
+  .col-12
+    h1.display-5.mb-4
+      i.bi.bi-bar-chart.text-primary
+      |  Statistics Analysis
+    p.lead.text-muted
+      | Game Type: 
+      strong = @game_type.upcase
+
+.row.mb-4
+  .col-md-4
+    .card
+      .card-header
+        h5.card-title.mb-0
+          i.bi.bi-calendar-week
+          |  Day of Week Statistics
+      .card-body
+        - if @day_of_week_stats.any?
+          .table-responsive
+            table.table.table-sm
+              thead
+                tr
+                  th Day
+                  th Count
+              tbody
+                - @day_of_week_stats.each do |day, count|
+                  tr
+                    td = day.capitalize
+                    td = count
+        - else
+          p.text-muted No day of week statistics available
+
+  .col-md-4
+    .card
+      .card-header
+        h5.card-title.mb-0
+          i.bi.bi-calendar-month
+          |  Month Statistics
+      .card-body
+        - if @month_stats.any?
+          .table-responsive
+            table.table.table-sm
+              thead
+                tr
+                  th Month
+                  th Count
+              tbody
+                - @month_stats.each do |month, count|
+                  tr
+                    td = Date::MONTHNAMES[month] || month
+                    td = count
+        - else
+          p.text-muted No month statistics available
+
+  .col-md-4
+    .card
+      .card-header
+        h5.card-title.mb-0
+          i.bi.bi-123
+          |  Even/Odd Statistics
+      .card-body
+        - if @even_odd_stats.any?
+          .table-responsive
+            table.table.table-sm
+              thead
+                tr
+                  th Type
+                  th Count
+              tbody
+                - @even_odd_stats.each do |type, count|
+                  tr
+                    td = type.capitalize
+                    td = count
+        - else
+          p.text-muted No even/odd statistics available
+
+.row.mt-4
+  .col-12
+    .card
+      .card-body.text-center
+        = link_to "Back to Dashboard", dashboard_path, class: "btn btn-primary me-2"
+        = link_to "View Predictions", predictions_path(game_type: @game_type), class: "btn btn-success me-2"
+        = link_to "API Data", api_v1_lottery_draws_path, class: "btn btn-info"

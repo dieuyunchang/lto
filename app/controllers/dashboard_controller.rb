@@ -34,4 +34,5 @@ class DashboardController < ApplicationController
     @predictions = Prediction.latest_predictions(@game_type)
     @template_predictions = TemplatePrediction.latest_predictions(@game_type)
   end
+
 end

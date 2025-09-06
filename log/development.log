@@ -1,0 +1,1396 @@
+  [1m[35m (142.3ms)[0m  [1m[35mCREATE DATABASE "vloto_rails_development" ENCODING = 'unicode'[0m
+  [1m[35m (42.6ms)[0m  [1m[35mCREATE DATABASE "vloto_rails_test" ENCODING = 'unicode'[0m
+  [1m[35m (6.6ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (4.9ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4859846210344398525)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (1.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-09-06 13:08:10.036161', '2025-09-06 13:08:10.036162') RETURNING "key"[0m
+Migrating to CreateLotteryDraws (1)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (5.1ms)[0m  [1m[35mCREATE TABLE "lottery_draws" ("id" bigserial primary key, "game_type" character varying NOT NULL, "draw_date" date NOT NULL, "date_string" character varying NOT NULL, "numbers" character varying NOT NULL, "prize_amount" bigint NOT NULL, "prize_string" character varying NOT NULL, "total" integer NOT NULL, "total_even_or_odd" character varying NOT NULL, "odd_count" integer NOT NULL, "even_count" integer NOT NULL, "template_id" character varying NOT NULL, "template_appear_comback_from_prev_count" integer NOT NULL, "template_continuos_count" integer NOT NULL, "template_appear_count" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_lottery_draws_on_game_type_and_draw_date" ON "lottery_draws" ("game_type", "draw_date")[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE INDEX "index_lottery_draws_on_template_id" ON "lottery_draws" ("template_id")[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE INDEX "index_lottery_draws_on_draw_date" ON "lottery_draws" ("draw_date")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('1') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreatePredictions (2)
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (5.0ms)[0m  [1m[35mCREATE TABLE "predictions" ("id" bigserial primary key, "game_type" character varying NOT NULL, "number" integer NOT NULL, "score" decimal(10,6) NOT NULL, "trend" character varying NOT NULL, "strength" decimal(10,6) NOT NULL, "confidence" character varying NOT NULL, "forecast" decimal(10,6) NOT NULL, "prediction_date" timestamp NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE INDEX "index_predictions_on_game_type_and_prediction_date" ON "predictions" ("game_type", "prediction_date")[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE INDEX "index_predictions_on_number" ON "predictions" ("number")[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE INDEX "index_predictions_on_confidence" ON "predictions" ("confidence")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('2') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateTemplatePredictions (3)
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (6.2ms)[0m  [1m[35mCREATE TABLE "template_predictions" ("id" bigserial primary key, "game_type" character varying NOT NULL, "template_id" character varying NOT NULL, "total_appearances" integer NOT NULL, "days_since_last" integer NOT NULL, "current_continuous_count" integer NOT NULL, "average_comeback_interval" decimal(10,2) NOT NULL, "max_continuous_count" integer NOT NULL, "comeback_pattern_score" integer NOT NULL, "continuous_pattern_score" integer NOT NULL, "frequency_pattern_score" integer NOT NULL, "recent_trend_score" integer NOT NULL, "overall_probability" integer NOT NULL, "confidence_level" integer NOT NULL, "last_appearance" character varying NOT NULL, "prediction_date" timestamp NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE INDEX "index_template_predictions_on_game_type_and_prediction_date" ON "template_predictions" ("game_type", "prediction_date")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE INDEX "index_template_predictions_on_template_id" ON "template_predictions" ("template_id")[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE INDEX "index_template_predictions_on_overall_probability" ON "template_predictions" ("overall_probability")[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE INDEX "index_template_predictions_on_confidence_level" ON "template_predictions" ("confidence_level")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('3') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateDayOfWeekSummaries (4)
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (4.5ms)[0m  [1m[35mCREATE TABLE "day_of_week_summaries" ("id" bigserial primary key, "game_type" character varying NOT NULL, "day_of_week" character varying NOT NULL, "number" integer NOT NULL, "count" integer NOT NULL, "percentage" decimal(5,2), "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE INDEX "index_day_of_week_summaries_on_game_type_and_day_of_week" ON "day_of_week_summaries" ("game_type", "day_of_week")[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE INDEX "index_day_of_week_summaries_on_number" ON "day_of_week_summaries" ("number")[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE INDEX "index_day_of_week_summaries_on_count" ON "day_of_week_summaries" ("count")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('4') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateMonthSummaries (5)
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (5.9ms)[0m  [1m[35mCREATE TABLE "month_summaries" ("id" bigserial primary key, "game_type" character varying NOT NULL, "month" integer NOT NULL, "number" integer NOT NULL, "count" integer NOT NULL, "percentage" decimal(5,2), "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE INDEX "index_month_summaries_on_game_type_and_month" ON "month_summaries" ("game_type", "month")[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE INDEX "index_month_summaries_on_number" ON "month_summaries" ("number")[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE INDEX "index_month_summaries_on_count" ON "month_summaries" ("count")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('5') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateDayOfMonthSummaries (6)
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (5.8ms)[0m  [1m[35mCREATE TABLE "day_of_month_summaries" ("id" bigserial primary key, "game_type" character varying NOT NULL, "day_of_month" integer NOT NULL, "number" integer NOT NULL, "count" integer NOT NULL, "percentage" decimal(5,2), "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE INDEX "index_day_of_month_summaries_on_game_type_and_day_of_month" ON "day_of_month_summaries" ("game_type", "day_of_month")[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE INDEX "index_day_of_month_summaries_on_number" ON "day_of_month_summaries" ("number")[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE INDEX "index_day_of_month_summaries_on_count" ON "day_of_month_summaries" ("count")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('6') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateEvenOddSummaries (7)
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE TABLE "even_odd_summaries" ("id" bigserial primary key, "game_type" character varying NOT NULL, "even_odd_type" character varying NOT NULL, "number" integer NOT NULL, "count" integer NOT NULL, "percentage" decimal(5,2), "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE INDEX "index_even_odd_summaries_on_game_type_and_even_odd_type" ON "even_odd_summaries" ("game_type", "even_odd_type")[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE INDEX "index_even_odd_summaries_on_number" ON "even_odd_summaries" ("number")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE INDEX "index_even_odd_summaries_on_count" ON "even_odd_summaries" ("count")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('7') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT pg_advisory_unlock(4859846210344398525)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for ::1 at 2025-09-06 20:08:36 +0700
+  [1m[36mActiveRecord::SchemaMigration Load (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by DashboardController#index as HTML
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.0ms | Allocations: 1805)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:08:36 +0700
+Processing by DashboardController#index as HTML
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms | Allocations: 649)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:08:44 +0700
+Processing by DashboardController#index as HTML
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.0ms | Allocations: 650)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:20:48 +0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by DashboardController#index as HTML
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.0ms | Allocations: 1582)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:22:23 +0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by DashboardController#index as HTML
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Completed 500 Internal Server Error in 96218ms (ActiveRecord: 0.0ms | Allocations: 21179)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:24:51 +0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (2.0ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mCACHE LotteryDraw Load (0.0ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.7ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 1.1ms | Allocations: 3054)
+  Rendered layout layouts/application.html.erb (Duration: 1.2ms | Allocations: 3175)
+Completed 500 Internal Server Error in 5153ms (ActiveRecord: 13.3ms | Allocations: 43810)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:25:18 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 1.7ms | Allocations: 1997)
+  Rendered layout layouts/application.html.erb (Duration: 1.9ms | Allocations: 2088)
+Completed 500 Internal Server Error in 4015ms (ActiveRecord: 1.2ms | Allocations: 15283)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:25:41 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 0.1ms | Allocations: 71)
+  Rendered layout layouts/application.html.erb (Duration: 12.8ms | Allocations: 10788)
+Completed 500 Internal Server Error in 1996ms (ActiveRecord: 1.3ms | Allocations: 24779)
+
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for ::1 at 2025-09-06 20:29:16 +0700
+Processing by DashboardController#index as */*
+  [1m[36mLotteryDraw Load (1.0ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+No template found for DashboardController#index, rendering head :no_content
+Completed 204 No Content in 5251ms (ActiveRecord: 2.5ms | Allocations: 12990)
+
+
+Started HEAD "/" for ::1 at 2025-09-06 20:29:39 +0700
+Processing by DashboardController#index as */*
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+No template found for DashboardController#index, rendering head :no_content
+Completed 204 No Content in 4ms (ActiveRecord: 1.2ms | Allocations: 4654)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:30:11 +0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.6ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 6.8ms | Allocations: 49660)
+  Rendered layout layouts/application.html.slim (Duration: 6.9ms | Allocations: 49781)
+Completed 500 Internal Server Error in 39ms (ActiveRecord: 13.0ms | Allocations: 73003)
+
+
+  [1m[36mLotteryDraw Load (1.0ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" /* loading for pp */ LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mLotteryDraw Load (0.6ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 5]]
+  [1m[36mLotteryDraw Load (0.7ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.9ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+Started GET "/dashboard/test" for ::1 at 2025-09-06 20:32:22 +0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by DashboardController#test as */*
+  [1m[36mLotteryDraw Load (1.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/test.html.slim within layouts/application
+  Rendered dashboard/test.html.slim within layouts/application (Duration: 3.1ms | Allocations: 11557)
+  Rendered layout layouts/application.html.slim (Duration: 4.7ms | Allocations: 16859)
+Completed 500 Internal Server Error in 32ms (ActiveRecord: 9.9ms | Allocations: 39372)
+
+
+Started GET "/dashboard/test" for ::1 at 2025-09-06 20:32:31 +0700
+Processing by DashboardController#test as */*
+  [1m[36mLotteryDraw Load (0.4ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/test.html.slim within layouts/application
+  Rendered dashboard/test.html.slim within layouts/application (Duration: 0.0ms | Allocations: 7)
+  Rendered layout layouts/application.html.slim (Duration: 1.3ms | Allocations: 4424)
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.4ms | Allocations: 5203)
+
+
+Started GET "/dashboard/simple" for ::1 at 2025-09-06 20:32:44 +0700
+Processing by DashboardController#simple as */*
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/simple.html.slim within layouts/application
+  Rendered dashboard/simple.html.slim within layouts/application (Duration: 0.9ms | Allocations: 1881)
+  Rendered layout layouts/application.html.slim (Duration: 1.7ms | Allocations: 6242)
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.0ms | Allocations: 7132)
+
+
+Started GET "/dashboard/simple" for ::1 at 2025-09-06 20:33:02 +0700
+Processing by DashboardController#simple as */*
+  Rendering layout layouts/minimal.html.slim
+  Rendering dashboard/simple.html.slim within layouts/minimal
+  Rendered dashboard/simple.html.slim within layouts/minimal (Duration: 0.7ms | Allocations: 1877)
+  Rendered layout layouts/minimal.html.slim (Duration: 1.4ms | Allocations: 4464)
+Completed 200 OK in 2ms (Views: 2.0ms | ActiveRecord: 0.0ms | Allocations: 5328)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:33:32 +0700
+Processing by DashboardController#index as */*
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 6.4ms | Allocations: 39871)
+  Rendered layout layouts/application.html.slim (Duration: 6.5ms | Allocations: 39962)
+Completed 500 Internal Server Error in 11ms (ActiveRecord: 2.0ms | Allocations: 45003)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:33:37 +0700
+Processing by DashboardController#index as */*
+  [1m[36mLotteryDraw Load (0.3ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 0.1ms | Allocations: 960)
+  Rendered layout layouts/application.html.slim (Duration: 0.2ms | Allocations: 1050)
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.4ms | Allocations: 2562)
+
+
+Started HEAD "/" for ::1 at 2025-09-06 20:33:39 +0700
+Processing by DashboardController#index as */*
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 0.1ms | Allocations: 960)
+  Rendered layout layouts/application.html.slim (Duration: 0.2ms | Allocations: 1050)
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.2ms | Allocations: 2562)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:35:17 +0700
+Processing by DashboardController#index as */*
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 6.7ms | Allocations: 40056)
+  Rendered layout layouts/application.html.slim (Duration: 16.1ms | Allocations: 75623)
+Completed 500 Internal Server Error in 21ms (ActiveRecord: 2.1ms | Allocations: 80834)
+
+
+Started HEAD "/" for ::1 at 2025-09-06 20:36:24 +0700
+Processing by DashboardController#index as */*
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 0.8ms | Allocations: 964)
+  Rendered layout layouts/application.html.slim (Duration: 3.2ms | Allocations: 5851)
+Completed 500 Internal Server Error in 5ms (ActiveRecord: 0.6ms | Allocations: 8715)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:37:21 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 10.4ms | Allocations: 39901)
+  Rendered layout layouts/application.html.slim (Duration: 18.9ms | Allocations: 74058)
+Completed 500 Internal Server Error in 26ms (ActiveRecord: 1.6ms | Allocations: 79853)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:37:38 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 0.8ms | Allocations: 1318)
+  Rendered layout layouts/application.html.slim (Duration: 6.6ms | Allocations: 34012)
+Completed 500 Internal Server Error in 12ms (ActiveRecord: 1.0ms | Allocations: 39378)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:37:39 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 0.0ms | Allocations: 6)
+  Rendered layout layouts/application.html.slim (Duration: 3.2ms | Allocations: 6443)
+Completed 500 Internal Server Error in 5ms (ActiveRecord: 0.2ms | Allocations: 8687)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:37:39 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 0.0ms | Allocations: 6)
+  Rendered layout layouts/application.html.slim (Duration: 5.4ms | Allocations: 5250)
+Completed 500 Internal Server Error in 9ms (ActiveRecord: 0.4ms | Allocations: 7071)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:37:39 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 0.0ms | Allocations: 6)
+  Rendered layout layouts/application.html.slim (Duration: 3.2ms | Allocations: 4805)
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 0.3ms | Allocations: 6314)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:37:52 +0700
+  [1m[36mActiveRecord::SchemaMigration Load (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (1.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 2.8ms | Allocations: 10055)
+  Rendered layout layouts/application.html.slim (Duration: 11.3ms | Allocations: 47042)
+Completed 500 Internal Server Error in 49ms (ActiveRecord: 16.5ms | Allocations: 70327)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:38:50 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.3ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 10.8ms | Allocations: 40086)
+  Rendered layout layouts/application.html.slim (Duration: 14.4ms | Allocations: 49354)
+Completed 500 Internal Server Error in 20ms (ActiveRecord: 2.1ms | Allocations: 54937)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:39:07 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 12.8ms | Allocations: 39900)
+  Rendered layout layouts/application.html.slim (Duration: 17.3ms | Allocations: 49960)
+Completed 500 Internal Server Error in 32ms (ActiveRecord: 1.7ms | Allocations: 55723)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:39:08 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 2.2ms | Allocations: 964)
+  Rendered layout layouts/application.html.slim (Duration: 8.0ms | Allocations: 5632)
+Completed 500 Internal Server Error in 12ms (ActiveRecord: 0.7ms | Allocations: 7479)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:39:09 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 2.5ms | Allocations: 964)
+  Rendered layout layouts/application.html.slim (Duration: 8.3ms | Allocations: 5974)
+Completed 500 Internal Server Error in 15ms (ActiveRecord: 0.9ms | Allocations: 8909)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:39:09 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 2.0ms | Allocations: 964)
+  Rendered layout layouts/application.html.slim (Duration: 9.6ms | Allocations: 6761)
+Completed 500 Internal Server Error in 15ms (ActiveRecord: 0.7ms | Allocations: 9770)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:39:21 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 7.2ms | Allocations: 39918)
+  Rendered layout layouts/application.html.slim (Duration: 8.2ms | Allocations: 41324)
+Completed 200 OK in 13ms (Views: 8.5ms | ActiveRecord: 1.4ms | Allocations: 46312)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 20:39:21 +0700
+Started GET "/" for ::1 at 2025-09-06 20:39:32 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 10.8ms | Allocations: 39899)
+  Rendered layout layouts/application.html.slim (Duration: 14.3ms | Allocations: 57440)
+Completed 500 Internal Server Error in 20ms (ActiveRecord: 1.5ms | Allocations: 62367)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:39:41 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 10.3ms | Allocations: 39906)
+  Rendered layout layouts/application.html.slim (Duration: 11.1ms | Allocations: 42289)
+Completed 500 Internal Server Error in 15ms (ActiveRecord: 1.4ms | Allocations: 47225)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:39:41 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 10.5ms | Allocations: 39907)
+  Rendered layout layouts/application.html.slim (Duration: 12.0ms | Allocations: 42079)
+Completed 200 OK in 18ms (Views: 12.4ms | ActiveRecord: 1.5ms | Allocations: 47018)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 20:39:42 +0700
+Started GET "/" for ::1 at 2025-09-06 20:39:42 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 1.8ms | Allocations: 964)
+  Rendered layout layouts/application.html.slim (Duration: 1.9ms | Allocations: 1064)
+Completed 200 OK in 6ms (Views: 1.6ms | ActiveRecord: 0.9ms | Allocations: 2582)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 20:39:42 +0700
+Started GET "/" for ::1 at 2025-09-06 20:39:46 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 12.2ms | Allocations: 39907)
+  Rendered layout layouts/application.html.slim (Duration: 13.5ms | Allocations: 42275)
+Completed 500 Internal Server Error in 21ms (ActiveRecord: 2.6ms | Allocations: 47203)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:39:56 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 13.8ms | Allocations: 39910)
+  Rendered layout layouts/application.html.slim (Duration: 14.9ms | Allocations: 43841)
+Completed 200 OK in 19ms (Views: 14.8ms | ActiveRecord: 1.5ms | Allocations: 48780)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 20:39:56 +0700
+Started GET "/" for ::1 at 2025-09-06 20:40:07 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 28.1ms | Allocations: 39901)
+  Rendered layout layouts/application.html.slim (Duration: 31.8ms | Allocations: 57422)
+Completed 500 Internal Server Error in 36ms (ActiveRecord: 1.6ms | Allocations: 62350)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:40:08 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 2.5ms | Allocations: 964)
+  Rendered layout layouts/application.html.slim (Duration: 3.1ms | Allocations: 1989)
+Completed 500 Internal Server Error in 7ms (ActiveRecord: 0.9ms | Allocations: 3513)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:40:31 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 8.6ms | Allocations: 39902)
+  Rendered layout layouts/application.html.slim (Duration: 10.5ms | Allocations: 47836)
+Completed 200 OK in 15ms (Views: 10.7ms | ActiveRecord: 1.4ms | Allocations: 52775)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 20:40:31 +0700
+Started GET "/" for ::1 at 2025-09-06 20:40:37 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 8.5ms | Allocations: 39897)
+  Rendered layout layouts/application.html.slim (Duration: 10.5ms | Allocations: 49508)
+Completed 200 OK in 16ms (Views: 10.7ms | ActiveRecord: 1.9ms | Allocations: 54447)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 20:40:37 +0700
+Started GET "/" for ::1 at 2025-09-06 20:40:43 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 6.7ms | Allocations: 39901)
+  Rendered layout layouts/application.html.slim (Duration: 9.3ms | Allocations: 57427)
+Completed 500 Internal Server Error in 14ms (ActiveRecord: 2.2ms | Allocations: 62355)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:40:50 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 9.4ms | Allocations: 39904)
+  Rendered layout layouts/application.html.slim (Duration: 13.1ms | Allocations: 57430)
+Completed 500 Internal Server Error in 18ms (ActiveRecord: 1.9ms | Allocations: 62358)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:40:55 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 10.3ms | Allocations: 39902)
+  Rendered layout layouts/application.html.slim (Duration: 14.3ms | Allocations: 57426)
+Completed 500 Internal Server Error in 19ms (ActiveRecord: 1.5ms | Allocations: 62354)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:40:59 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 9.4ms | Allocations: 39910)
+  Rendered layout layouts/application.html.slim (Duration: 29.2ms | Allocations: 55722)
+Completed 500 Internal Server Error in 37ms (ActiveRecord: 2.2ms | Allocations: 60650)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:41:11 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 9.6ms | Allocations: 39904)
+  Rendered layout layouts/application.html.slim (Duration: 12.8ms | Allocations: 55330)
+Completed 500 Internal Server Error in 19ms (ActiveRecord: 2.3ms | Allocations: 60258)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:41:19 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 7.5ms | Allocations: 39905)
+  Rendered layout layouts/application.html.slim (Duration: 10.4ms | Allocations: 48491)
+Completed 200 OK in 16ms (Views: 10.7ms | ActiveRecord: 1.8ms | Allocations: 53438)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 20:41:19 +0700
+Started GET "/" for ::1 at 2025-09-06 20:41:40 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 9.2ms | Allocations: 39904)
+  Rendered layout layouts/application.html.slim (Duration: 12.8ms | Allocations: 53393)
+Completed 200 OK in 18ms (Views: 13.0ms | ActiveRecord: 2.0ms | Allocations: 58334)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 20:41:40 +0700
+Started GET "/" for ::1 at 2025-09-06 20:41:44 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 8.7ms | Allocations: 39909)
+  Rendered layout layouts/application.html.slim (Duration: 11.9ms | Allocations: 54370)
+Completed 500 Internal Server Error in 18ms (ActiveRecord: 2.1ms | Allocations: 59298)
+
+
+Started HEAD "/" for ::1 at 2025-09-06 20:43:01 +0700
+Processing by DashboardController#index as */*
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 7.6ms | Allocations: 39905)
+  Rendered layout layouts/application.html.slim (Duration: 17.1ms | Allocations: 73639)
+Completed 500 Internal Server Error in 22ms (ActiveRecord: 1.7ms | Allocations: 78773)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:43:11 +0700
+Processing by DashboardController#index as */*
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 2.1ms | Allocations: 964)
+  Rendered layout layouts/application.html.slim (Duration: 8.4ms | Allocations: 6079)
+Completed 500 Internal Server Error in 13ms (ActiveRecord: 0.7ms | Allocations: 9055)
+
+
+  [1m[36mLotteryDraw Load (0.8ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 /* loading for inspect */ ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 5]]
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 /* loading for inspect */ ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 5]]
+Started GET "/" for ::1 at 2025-09-06 20:43:29 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 2.0ms | Allocations: 964)
+  Rendered layout layouts/application.html.slim (Duration: 10.5ms | Allocations: 8432)
+Completed 500 Internal Server Error in 15ms (ActiveRecord: 0.7ms | Allocations: 10255)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:43:30 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 2.8ms | Allocations: 964)
+  Rendered layout layouts/application.html.slim (Duration: 8.6ms | Allocations: 6112)
+Completed 500 Internal Server Error in 13ms (ActiveRecord: 0.8ms | Allocations: 8512)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:43:30 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 2.3ms | Allocations: 964)
+  Rendered layout layouts/application.html.slim (Duration: 8.3ms | Allocations: 6567)
+Completed 500 Internal Server Error in 12ms (ActiveRecord: 0.7ms | Allocations: 8186)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:43:30 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 2.3ms | Allocations: 964)
+  Rendered layout layouts/application.html.slim (Duration: 10.2ms | Allocations: 8421)
+Completed 500 Internal Server Error in 14ms (ActiveRecord: 1.0ms | Allocations: 9931)
+
+
+Started HEAD "/dashboard" for ::1 at 2025-09-06 20:43:35 +0700
+Processing by DashboardController#index as */*
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 2.4ms | Allocations: 964)
+  Rendered layout layouts/application.html.slim (Duration: 9.1ms | Allocations: 6077)
+Completed 500 Internal Server Error in 16ms (ActiveRecord: 0.9ms | Allocations: 8919)
+
+
+Started HEAD "/vietlot45" for ::1 at 2025-09-06 20:43:38 +0700
+Processing by DashboardController#vietlot45 as */*
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mPrediction Maximum (1.7ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (1.1ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/vietlot45.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/vietlot45.html.slim:67
+  [1m[36mPrediction Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/vietlot45.html.slim:98
+  [1m[36mTemplatePrediction Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/vietlot45.html.slim:116
+  Rendered dashboard/vietlot45.html.slim within layouts/application (Duration: 16.8ms | Allocations: 39913)
+  Rendered layout layouts/application.html.slim (Duration: 18.9ms | Allocations: 44593)
+Completed 500 Internal Server Error in 35ms (ActiveRecord: 5.7ms | Allocations: 52460)
+
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for ::1 at 2025-09-06 20:44:20 +0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.8ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 7.9ms | Allocations: 49063)
+  Rendered layout layouts/application.html.slim (Duration: 16.8ms | Allocations: 85154)
+Completed 500 Internal Server Error in 45ms (ActiveRecord: 9.0ms | Allocations: 110080)
+
+
+
+Sprockets::ArgumentError - link_tree argument must be a directory:
+
+Started POST "/__better_errors/9d100ca34ee3a8e6/variables" for ::1 at 2025-09-06 20:44:20 +0700
+Started HEAD "/statistics" for ::1 at 2025-09-06 20:45:12 +0700
+Processing by DashboardController#statistics as */*
+  [1m[36mDayOfWeekSummary Sum (2.1ms)[0m  [1m[34mSELECT SUM("day_of_week_summaries"."count") AS "sum_count", "day_of_week_summaries"."day_of_week" AS "day_of_week_summaries_day_of_week" FROM "day_of_week_summaries" WHERE "day_of_week_summaries"."game_type" = $1 GROUP BY "day_of_week_summaries"."day_of_week"[0m  [["game_type", "vietlot45"]]
+  ↳ app/controllers/dashboard_controller.rb:27:in `statistics'
+  [1m[36mMonthSummary Sum (1.3ms)[0m  [1m[34mSELECT SUM("month_summaries"."count") AS "sum_count", "month_summaries"."month" AS "month_summaries_month" FROM "month_summaries" WHERE "month_summaries"."game_type" = $1 GROUP BY "month_summaries"."month"[0m  [["game_type", "vietlot45"]]
+  ↳ app/controllers/dashboard_controller.rb:28:in `statistics'
+  [1m[36mEvenOddSummary Sum (1.3ms)[0m  [1m[34mSELECT SUM("even_odd_summaries"."count") AS "sum_count", "even_odd_summaries"."even_odd_type" AS "even_odd_summaries_even_odd_type" FROM "even_odd_summaries" WHERE "even_odd_summaries"."game_type" = $1 GROUP BY "even_odd_summaries"."even_odd_type"[0m  [["game_type", "vietlot45"]]
+  ↳ app/controllers/dashboard_controller.rb:29:in `statistics'
+No template found for DashboardController#statistics, rendering head :no_content
+Completed 204 No Content in 20ms (ActiveRecord: 7.5ms | Allocations: 7414)
+
+
+Started GET "/statistics" for ::1 at 2025-09-06 20:45:28 +0700
+Processing by DashboardController#statistics as HTML
+  [1m[36mDayOfWeekSummary Sum (0.3ms)[0m  [1m[34mSELECT SUM("day_of_week_summaries"."count") AS "sum_count", "day_of_week_summaries"."day_of_week" AS "day_of_week_summaries_day_of_week" FROM "day_of_week_summaries" WHERE "day_of_week_summaries"."game_type" = $1 GROUP BY "day_of_week_summaries"."day_of_week"[0m  [["game_type", "vietlot45"]]
+  ↳ app/controllers/dashboard_controller.rb:27:in `statistics'
+  [1m[36mMonthSummary Sum (0.3ms)[0m  [1m[34mSELECT SUM("month_summaries"."count") AS "sum_count", "month_summaries"."month" AS "month_summaries_month" FROM "month_summaries" WHERE "month_summaries"."game_type" = $1 GROUP BY "month_summaries"."month"[0m  [["game_type", "vietlot45"]]
+  ↳ app/controllers/dashboard_controller.rb:28:in `statistics'
+  [1m[36mEvenOddSummary Sum (0.3ms)[0m  [1m[34mSELECT SUM("even_odd_summaries"."count") AS "sum_count", "even_odd_summaries"."even_odd_type" AS "even_odd_summaries_even_odd_type" FROM "even_odd_summaries" WHERE "even_odd_summaries"."game_type" = $1 GROUP BY "even_odd_summaries"."even_odd_type"[0m  [["game_type", "vietlot45"]]
+  ↳ app/controllers/dashboard_controller.rb:29:in `statistics'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/statistics.html.slim within layouts/application
+  Rendered dashboard/statistics.html.slim within layouts/application (Duration: 3.1ms | Allocations: 22176)
+  Rendered layout layouts/application.html.slim (Duration: 9.6ms | Allocations: 55052)
+Completed 500 Internal Server Error in 20ms (ActiveRecord: 3.9ms | Allocations: 64025)
+
+
+
+Sprockets::ArgumentError - link_tree argument must be a directory:
+
+Started POST "/__better_errors/6bebc4208ef6dbb7/variables" for ::1 at 2025-09-06 20:45:28 +0700
+Started HEAD "/" for ::1 at 2025-09-06 20:45:38 +0700
+Processing by DashboardController#index as */*
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 8.0ms | Allocations: 39899)
+  Rendered layout layouts/application.html.slim (Duration: 16.8ms | Allocations: 72526)
+Completed 500 Internal Server Error in 21ms (ActiveRecord: 2.2ms | Allocations: 77725)
+
+
+
+Sprockets::ArgumentError - link_tree argument must be a directory:
+
+Started HEAD "/statistics" for ::1 at 2025-09-06 20:45:43 +0700
+Processing by DashboardController#statistics as */*
+  [1m[36mDayOfWeekSummary Sum (0.3ms)[0m  [1m[34mSELECT SUM("day_of_week_summaries"."count") AS "sum_count", "day_of_week_summaries"."day_of_week" AS "day_of_week_summaries_day_of_week" FROM "day_of_week_summaries" WHERE "day_of_week_summaries"."game_type" = $1 GROUP BY "day_of_week_summaries"."day_of_week"[0m  [["game_type", "vietlot45"]]
+  ↳ app/controllers/dashboard_controller.rb:27:in `statistics'
+  [1m[36mMonthSummary Sum (0.3ms)[0m  [1m[34mSELECT SUM("month_summaries"."count") AS "sum_count", "month_summaries"."month" AS "month_summaries_month" FROM "month_summaries" WHERE "month_summaries"."game_type" = $1 GROUP BY "month_summaries"."month"[0m  [["game_type", "vietlot45"]]
+  ↳ app/controllers/dashboard_controller.rb:28:in `statistics'
+  [1m[36mEvenOddSummary Sum (0.3ms)[0m  [1m[34mSELECT SUM("even_odd_summaries"."count") AS "sum_count", "even_odd_summaries"."even_odd_type" AS "even_odd_summaries_even_odd_type" FROM "even_odd_summaries" WHERE "even_odd_summaries"."game_type" = $1 GROUP BY "even_odd_summaries"."even_odd_type"[0m  [["game_type", "vietlot45"]]
+  ↳ app/controllers/dashboard_controller.rb:29:in `statistics'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/statistics.html.slim within layouts/application
+  Rendered dashboard/statistics.html.slim within layouts/application (Duration: 9.5ms | Allocations: 22046)
+  Rendered layout layouts/application.html.slim (Duration: 14.7ms | Allocations: 27068)
+Completed 500 Internal Server Error in 33ms (ActiveRecord: 4.3ms | Allocations: 34595)
+
+
+
+Sprockets::ArgumentError - link_tree argument must be a directory:
+
+Started HEAD "/predictions" for ::1 at 2025-09-06 20:45:46 +0700
+Processing by DashboardController#predictions as */*
+  [1m[36mPrediction Maximum (1.2ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (1.0ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/predictions.html.slim within layouts/application
+  [1m[36mPrediction Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:18
+  [1m[36mTemplatePrediction Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:49
+  Rendered dashboard/predictions.html.slim within layouts/application (Duration: 14.2ms | Allocations: 26320)
+  Rendered layout layouts/application.html.slim (Duration: 19.1ms | Allocations: 31650)
+Completed 500 Internal Server Error in 40ms (ActiveRecord: 5.5ms | Allocations: 39392)
+
+
+
+Sprockets::ArgumentError - link_tree argument must be a directory:
+
+Started GET "/" for ::1 at 2025-09-06 20:46:01 +0700
+Processing by DashboardController#index as */*
+  [1m[36mLotteryDraw Load (0.4ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.3ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 3.3ms | Allocations: 965)
+  Rendered layout layouts/application.html.slim (Duration: 17.0ms | Allocations: 8693)
+Completed 500 Internal Server Error in 23ms (ActiveRecord: 1.3ms | Allocations: 10766)
+
+
+
+Sprockets::ArgumentError - link_tree argument must be a directory:
+
+Started HEAD "/" for ::1 at 2025-09-06 20:46:55 +0700
+Processing by DashboardController#index as */*
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 2.0ms | Allocations: 964)
+  Rendered layout layouts/application.html.slim (Duration: 24.3ms | Allocations: 13359)
+Completed 200 OK in 28ms (Views: 24.2ms | ActiveRecord: 0.7ms | Allocations: 14922)
+
+
+Started GET "/" for ::1 at 2025-09-06 20:46:58 +0700
+Processing by DashboardController#index as */*
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 2.3ms | Allocations: 964)
+  Rendered layout layouts/application.html.slim (Duration: 4.5ms | Allocations: 2745)
+Completed 200 OK in 9ms (Views: 4.4ms | ActiveRecord: 0.9ms | Allocations: 4271)
+
+
+Started HEAD "/statistics" for ::1 at 2025-09-06 20:47:06 +0700
+Processing by DashboardController#statistics as */*
+  [1m[36mDayOfWeekSummary Sum (0.4ms)[0m  [1m[34mSELECT SUM("day_of_week_summaries"."count") AS "sum_count", "day_of_week_summaries"."day_of_week" AS "day_of_week_summaries_day_of_week" FROM "day_of_week_summaries" WHERE "day_of_week_summaries"."game_type" = $1 GROUP BY "day_of_week_summaries"."day_of_week"[0m  [["game_type", "vietlot45"]]
+  ↳ app/controllers/dashboard_controller.rb:27:in `statistics'
+  [1m[36mMonthSummary Sum (0.2ms)[0m  [1m[34mSELECT SUM("month_summaries"."count") AS "sum_count", "month_summaries"."month" AS "month_summaries_month" FROM "month_summaries" WHERE "month_summaries"."game_type" = $1 GROUP BY "month_summaries"."month"[0m  [["game_type", "vietlot45"]]
+  ↳ app/controllers/dashboard_controller.rb:28:in `statistics'
+  [1m[36mEvenOddSummary Sum (0.3ms)[0m  [1m[34mSELECT SUM("even_odd_summaries"."count") AS "sum_count", "even_odd_summaries"."even_odd_type" AS "even_odd_summaries_even_odd_type" FROM "even_odd_summaries" WHERE "even_odd_summaries"."game_type" = $1 GROUP BY "even_odd_summaries"."even_odd_type"[0m  [["game_type", "vietlot45"]]
+  ↳ app/controllers/dashboard_controller.rb:29:in `statistics'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/statistics.html.slim within layouts/application
+  Rendered dashboard/statistics.html.slim within layouts/application (Duration: 0.3ms | Allocations: 107)
+  Rendered layout layouts/application.html.slim (Duration: 3.5ms | Allocations: 1884)
+Completed 200 OK in 8ms (Views: 4.0ms | ActiveRecord: 0.8ms | Allocations: 3673)
+
+
+Started HEAD "/predictions" for ::1 at 2025-09-06 20:47:10 +0700
+Processing by DashboardController#predictions as */*
+  [1m[36mPrediction Maximum (0.3ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.2ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/predictions.html.slim within layouts/application
+  [1m[36mPrediction Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:18
+  [1m[36mTemplatePrediction Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:49
+  Rendered dashboard/predictions.html.slim within layouts/application (Duration: 2.3ms | Allocations: 928)
+  Rendered layout layouts/application.html.slim (Duration: 5.2ms | Allocations: 2705)
+Completed 200 OK in 9ms (Views: 5.1ms | ActiveRecord: 0.9ms | Allocations: 3990)
+
+
+Started HEAD "/vietlot45" for ::1 at 2025-09-06 20:47:15 +0700
+Processing by DashboardController#vietlot45 as */*
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mPrediction Maximum (0.3ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.3ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/vietlot45.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/vietlot45.html.slim:67
+  [1m[36mPrediction Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/vietlot45.html.slim:98
+  [1m[36mTemplatePrediction Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/vietlot45.html.slim:116
+  Rendered dashboard/vietlot45.html.slim within layouts/application (Duration: 17.2ms | Allocations: 39717)
+  Rendered layout layouts/application.html.slim (Duration: 18.8ms | Allocations: 41499)
+Completed 200 OK in 25ms (Views: 18.6ms | ActiveRecord: 1.3ms | Allocations: 43505)
+
+
+Started GET "/statistics" for ::1 at 2025-09-06 20:47:23 +0700
+Processing by DashboardController#statistics as HTML
+  [1m[36mDayOfWeekSummary Sum (0.4ms)[0m  [1m[34mSELECT SUM("day_of_week_summaries"."count") AS "sum_count", "day_of_week_summaries"."day_of_week" AS "day_of_week_summaries_day_of_week" FROM "day_of_week_summaries" WHERE "day_of_week_summaries"."game_type" = $1 GROUP BY "day_of_week_summaries"."day_of_week"[0m  [["game_type", "vietlot45"]]
+  ↳ app/controllers/dashboard_controller.rb:27:in `statistics'
+  [1m[36mMonthSummary Sum (0.4ms)[0m  [1m[34mSELECT SUM("month_summaries"."count") AS "sum_count", "month_summaries"."month" AS "month_summaries_month" FROM "month_summaries" WHERE "month_summaries"."game_type" = $1 GROUP BY "month_summaries"."month"[0m  [["game_type", "vietlot45"]]
+  ↳ app/controllers/dashboard_controller.rb:28:in `statistics'
+  [1m[36mEvenOddSummary Sum (0.3ms)[0m  [1m[34mSELECT SUM("even_odd_summaries"."count") AS "sum_count", "even_odd_summaries"."even_odd_type" AS "even_odd_summaries_even_odd_type" FROM "even_odd_summaries" WHERE "even_odd_summaries"."game_type" = $1 GROUP BY "even_odd_summaries"."even_odd_type"[0m  [["game_type", "vietlot45"]]
+  ↳ app/controllers/dashboard_controller.rb:29:in `statistics'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/statistics.html.slim within layouts/application
+  Rendered dashboard/statistics.html.slim within layouts/application (Duration: 0.3ms | Allocations: 107)
+  Rendered layout layouts/application.html.slim (Duration: 2.6ms | Allocations: 2012)
+Completed 200 OK in 9ms (Views: 3.2ms | ActiveRecord: 1.1ms | Allocations: 3816)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 20:47:24 +0700
+Started GET "/dashboard" for ::1 at 2025-09-06 20:47:33 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.3ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 12.5ms | Allocations: 39901)
+  Rendered layout layouts/application.html.slim (Duration: 20.4ms | Allocations: 71198)
+Completed 200 OK in 28ms (Views: 20.5ms | ActiveRecord: 2.7ms | Allocations: 76144)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 20:47:33 +0700
+Started GET "/vietlot55" for ::1 at 2025-09-06 20:47:36 +0700
+Processing by DashboardController#vietlot55 as HTML
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mPrediction Maximum (0.4ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.2ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+Completed 406 Not Acceptable in 20ms (ActiveRecord: 3.8ms | Allocations: 7902)
+
+
+
+ActionController::MissingExactTemplate - DashboardController#vietlot55 is missing a template for request formats: text/html:
+
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 /* loading for inspect */ ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 11]]
+  ↳ (eval):73:in `block in render_template'
+  [1m[36mPrediction Load (0.1ms)[0m  [1m[34mSELECT "predictions".* FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL /* loading for inspect */ LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 11]]
+  ↳ (eval):73:in `block in render_template'
+  [1m[36mTemplatePrediction Load (0.1ms)[0m  [1m[34mSELECT "template_predictions".* FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL /* loading for inspect */ LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 11]]
+  ↳ (eval):73:in `block in render_template'
+Started POST "/__better_errors/7b8d09711aee47c7/variables" for ::1 at 2025-09-06 20:47:36 +0700
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 /* loading for inspect */ ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 11]]
+  ↳ (eval):73:in `block in render_template'
+  [1m[36mPrediction Load (0.2ms)[0m  [1m[34mSELECT "predictions".* FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL /* loading for inspect */ LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 11]]
+  ↳ (eval):73:in `block in render_template'
+  [1m[36mTemplatePrediction Load (0.2ms)[0m  [1m[34mSELECT "template_predictions".* FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL /* loading for inspect */ LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 11]]
+  ↳ (eval):73:in `block in render_template'
+Started GET "/favicon.ico" for ::1 at 2025-09-06 20:47:42 +0700
+Started GET "/vietlot45" for ::1 at 2025-09-06 20:47:44 +0700
+Processing by DashboardController#vietlot45 as HTML
+  [1m[36mLotteryDraw Load (0.3ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mPrediction Maximum (0.3ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.3ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/vietlot45.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/vietlot45.html.slim:67
+  [1m[36mPrediction Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/vietlot45.html.slim:98
+  [1m[36mTemplatePrediction Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/vietlot45.html.slim:116
+  Rendered dashboard/vietlot45.html.slim within layouts/application (Duration: 15.8ms | Allocations: 39772)
+  Rendered layout layouts/application.html.slim (Duration: 19.6ms | Allocations: 41803)
+Completed 200 OK in 27ms (Views: 20.1ms | ActiveRecord: 1.5ms | Allocations: 43812)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 20:47:45 +0700
+Started GET "/favicon.ico" for ::1 at 2025-09-06 20:47:47 +0700
+Started GET "/predictions" for ::1 at 2025-09-06 20:47:51 +0700
+Processing by DashboardController#predictions as HTML
+  [1m[36mPrediction Maximum (0.3ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.4ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/predictions.html.slim within layouts/application
+  [1m[36mPrediction Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:18
+  [1m[36mTemplatePrediction Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:49
+  Rendered dashboard/predictions.html.slim within layouts/application (Duration: 22.3ms | Allocations: 26190)
+  Rendered layout layouts/application.html.slim (Duration: 26.0ms | Allocations: 28235)
+Completed 200 OK in 32ms (Views: 26.0ms | ActiveRecord: 1.2ms | Allocations: 29589)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 20:47:51 +0700
+Started GET "/favicon.ico" for ::1 at 2025-09-06 20:47:53 +0700
+Started GET "/dashboard" for ::1 at 2025-09-06 20:47:56 +0700
+Processing by DashboardController#index as HTML
+  [1m[36mLotteryDraw Load (0.1ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mLotteryDraw Load (0.4ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/index.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:66
+  [1m[36mLotteryDraw Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/index.html.slim:93
+  Rendered dashboard/index.html.slim within layouts/application (Duration: 1.9ms | Allocations: 964)
+  Rendered layout layouts/application.html.slim (Duration: 4.3ms | Allocations: 2985)
+Completed 200 OK in 8ms (Views: 4.3ms | ActiveRecord: 0.9ms | Allocations: 4503)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 20:47:56 +0700
+Started GET "/vietlot45" for ::1 at 2025-09-06 20:47:57 +0700
+Processing by DashboardController#vietlot45 as HTML
+  [1m[36mLotteryDraw Load (0.4ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mPrediction Maximum (0.2ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.2ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/vietlot45.html.slim within layouts/application
+  [1m[36mLotteryDraw Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/vietlot45.html.slim:67
+  [1m[36mPrediction Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/vietlot45.html.slim:98
+  [1m[36mTemplatePrediction Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/vietlot45.html.slim:116
+  Rendered dashboard/vietlot45.html.slim within layouts/application (Duration: 5.1ms | Allocations: 1372)
+  Rendered layout layouts/application.html.slim (Duration: 9.3ms | Allocations: 3402)
+Completed 200 OK in 17ms (Views: 9.1ms | ActiveRecord: 1.8ms | Allocations: 5344)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 20:47:57 +0700
+Started GET "/vietlot55" for ::1 at 2025-09-06 20:47:57 +0700
+Processing by DashboardController#vietlot55 as HTML
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mPrediction Maximum (0.2ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.1ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+Completed 406 Not Acceptable in 6ms (ActiveRecord: 0.5ms | Allocations: 2669)
+
+
+
+ActionController::MissingExactTemplate - DashboardController#vietlot55 is missing a template for request formats: text/html:
+
+  [1m[36mLotteryDraw Load (0.3ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 /* loading for inspect */ ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 11]]
+  ↳ (eval):73:in `block in render_template'
+  [1m[36mPrediction Load (0.2ms)[0m  [1m[34mSELECT "predictions".* FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL /* loading for inspect */ LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 11]]
+  ↳ (eval):73:in `block in render_template'
+  [1m[36mTemplatePrediction Load (0.2ms)[0m  [1m[34mSELECT "template_predictions".* FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL /* loading for inspect */ LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 11]]
+  ↳ (eval):73:in `block in render_template'
+Started POST "/__better_errors/dcfeaf8a3a3b0b1e/variables" for ::1 at 2025-09-06 20:47:58 +0700
+  [1m[36mLotteryDraw Load (0.3ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 /* loading for inspect */ ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 11]]
+  ↳ (eval):73:in `block in render_template'
+  [1m[36mPrediction Load (0.2ms)[0m  [1m[34mSELECT "predictions".* FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL /* loading for inspect */ LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 11]]
+  ↳ (eval):73:in `block in render_template'
+  [1m[36mTemplatePrediction Load (0.3ms)[0m  [1m[34mSELECT "template_predictions".* FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL /* loading for inspect */ LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 11]]
+  ↳ (eval):73:in `block in render_template'
+Started GET "/favicon.ico" for ::1 at 2025-09-06 20:47:59 +0700
+Started GET "/statistics" for ::1 at 2025-09-06 20:48:00 +0700
+Processing by DashboardController#statistics as HTML
+  [1m[36mDayOfWeekSummary Sum (0.3ms)[0m  [1m[34mSELECT SUM("day_of_week_summaries"."count") AS "sum_count", "day_of_week_summaries"."day_of_week" AS "day_of_week_summaries_day_of_week" FROM "day_of_week_summaries" WHERE "day_of_week_summaries"."game_type" = $1 GROUP BY "day_of_week_summaries"."day_of_week"[0m  [["game_type", "vietlot45"]]
+  ↳ app/controllers/dashboard_controller.rb:27:in `statistics'
+  [1m[36mMonthSummary Sum (0.3ms)[0m  [1m[34mSELECT SUM("month_summaries"."count") AS "sum_count", "month_summaries"."month" AS "month_summaries_month" FROM "month_summaries" WHERE "month_summaries"."game_type" = $1 GROUP BY "month_summaries"."month"[0m  [["game_type", "vietlot45"]]
+  ↳ app/controllers/dashboard_controller.rb:28:in `statistics'
+  [1m[36mEvenOddSummary Sum (0.2ms)[0m  [1m[34mSELECT SUM("even_odd_summaries"."count") AS "sum_count", "even_odd_summaries"."even_odd_type" AS "even_odd_summaries_even_odd_type" FROM "even_odd_summaries" WHERE "even_odd_summaries"."game_type" = $1 GROUP BY "even_odd_summaries"."even_odd_type"[0m  [["game_type", "vietlot45"]]
+  ↳ app/controllers/dashboard_controller.rb:29:in `statistics'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/statistics.html.slim within layouts/application
+  Rendered dashboard/statistics.html.slim within layouts/application (Duration: 10.1ms | Allocations: 22037)
+  Rendered layout layouts/application.html.slim (Duration: 13.3ms | Allocations: 24061)
+Completed 200 OK in 29ms (Views: 13.9ms | ActiveRecord: 3.6ms | Allocations: 31060)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 20:48:00 +0700
+Started GET "/predictions" for ::1 at 2025-09-06 20:48:01 +0700
+Processing by DashboardController#predictions as HTML
+  [1m[36mPrediction Maximum (0.2ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.2ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot45"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+  Rendering layout layouts/application.html.slim
+  Rendering dashboard/predictions.html.slim within layouts/application
+  [1m[36mPrediction Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:18
+  [1m[36mTemplatePrediction Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL LIMIT $2[0m  [["game_type", "vietlot45"], ["LIMIT", 1]]
+  ↳ app/views/dashboard/predictions.html.slim:49
+  Rendered dashboard/predictions.html.slim within layouts/application (Duration: 2.9ms | Allocations: 924)
+  Rendered layout layouts/application.html.slim (Duration: 6.9ms | Allocations: 2959)
+Completed 200 OK in 13ms (Views: 7.1ms | ActiveRecord: 1.1ms | Allocations: 4249)
+
+
+Started GET "/favicon.ico" for ::1 at 2025-09-06 20:48:01 +0700
+Started GET "/vietlot55" for ::1 at 2025-09-06 20:48:02 +0700
+Processing by DashboardController#vietlot55 as HTML
+  [1m[36mLotteryDraw Load (0.3ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 1]]
+  ↳ app/models/lottery_draw.rb:37:in `latest_draw'
+  [1m[36mPrediction Maximum (0.2ms)[0m  [1m[34mSELECT MAX("predictions"."prediction_date") FROM "predictions" WHERE "predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/prediction.rb:31:in `latest_predictions'
+  [1m[36mTemplatePrediction Maximum (0.2ms)[0m  [1m[34mSELECT MAX("template_predictions"."prediction_date") FROM "template_predictions" WHERE "template_predictions"."game_type" = $1[0m  [["game_type", "vietlot55"]]
+  ↳ app/models/template_prediction.rb:40:in `latest_predictions'
+Completed 406 Not Acceptable in 8ms (ActiveRecord: 0.6ms | Allocations: 2671)
+
+
+
+ActionController::MissingExactTemplate - DashboardController#vietlot55 is missing a template for request formats: text/html:
+
+  [1m[36mLotteryDraw Load (0.5ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 /* loading for inspect */ ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 11]]
+  ↳ (eval):73:in `block in render_template'
+  [1m[36mPrediction Load (0.4ms)[0m  [1m[34mSELECT "predictions".* FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL /* loading for inspect */ LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 11]]
+  ↳ (eval):73:in `block in render_template'
+  [1m[36mTemplatePrediction Load (0.4ms)[0m  [1m[34mSELECT "template_predictions".* FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL /* loading for inspect */ LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 11]]
+  ↳ (eval):73:in `block in render_template'
+Started POST "/__better_errors/9af07e813bcd4e17/variables" for ::1 at 2025-09-06 20:48:02 +0700
+  [1m[36mLotteryDraw Load (0.2ms)[0m  [1m[34mSELECT "lottery_draws".* FROM "lottery_draws" WHERE "lottery_draws"."game_type" = $1 /* loading for inspect */ ORDER BY "lottery_draws"."draw_date" DESC LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 11]]
+  ↳ (eval):73:in `block in render_template'
+  [1m[36mPrediction Load (0.2ms)[0m  [1m[34mSELECT "predictions".* FROM "predictions" WHERE "predictions"."game_type" = $1 AND "predictions"."prediction_date" IS NULL /* loading for inspect */ LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 11]]
+  ↳ (eval):73:in `block in render_template'
+  [1m[36mTemplatePrediction Load (0.2ms)[0m  [1m[34mSELECT "template_predictions".* FROM "template_predictions" WHERE "template_predictions"."game_type" = $1 AND "template_predictions"."prediction_date" IS NULL /* loading for inspect */ LIMIT $2[0m  [["game_type", "vietlot55"], ["LIMIT", 11]]
+  ↳ (eval):73:in `block in render_template'
