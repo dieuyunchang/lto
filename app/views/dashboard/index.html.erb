@@ -1,0 +1,198 @@
+<div class="row">
+  <div class="col-12">
+    <h1 class="display-4 text-center mb-4">
+      <i class="bi bi-graph-up"></i> Vloto Rails Dashboard
+    </h1>
+    <p class="lead text-center text-muted mb-5">
+      Advanced Lottery Prediction System with AI-Powered Analytics
+    </p>
+  </div>
+</div>
+
+<div class="row mb-4">
+  <div class="col-md-6">
+    <div class="card card-hover h-100">
+      <div class="card-header bg-primary text-white">
+        <h5 class="card-title mb-0">
+          <i class="bi bi-4-circle"></i> Vietlot 45
+        </h5>
+      </div>
+      <div class="card-body">
+        <% if @vietlot45_latest %>
+          <h6 class="text-muted">Latest Draw</h6>
+          <div class="mb-3">
+            <strong><%= @vietlot45_latest.formatted_date %></strong>
+          </div>
+          <div class="mb-3">
+            <% @vietlot45_latest.numbers_array.each do |number| %>
+              <span class="lottery-number"><%= number %></span>
+            <% end %>
+          </div>
+          <div class="mb-3">
+            <span class="template-id"><%= @vietlot45_latest.template_id %></span>
+          </div>
+          <div class="text-muted">
+            Prize: <strong><%= @vietlot45_latest.formatted_prize %></strong>
+          </div>
+        <% else %>
+          <p class="text-muted">No data available</p>
+        <% end %>
+      </div>
+      <div class="card-footer">
+        <%= link_to "View Details", dashboard_vietlot45_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-6">
+    <div class="card card-hover h-100">
+      <div class="card-header bg-success text-white">
+        <h5 class="card-title mb-0">
+          <i class="bi bi-5-circle"></i> Vietlot 55
+        </h5>
+      </div>
+      <div class="card-body">
+        <% if @vietlot55_latest %>
+          <h6 class="text-muted">Latest Draw</h6>
+          <div class="mb-3">
+            <strong><%= @vietlot55_latest.formatted_date %></strong>
+          </div>
+          <div class="mb-3">
+            <% @vietlot55_latest.numbers_array.each do |number| %>
+              <span class="lottery-number"><%= number %></span>
+            <% end %>
+          </div>
+          <div class="mb-3">
+            <span class="template-id"><%= @vietlot55_latest.template_id %></span>
+          </div>
+          <div class="text-muted">
+            Prize: <strong><%= @vietlot55_latest.formatted_prize %></strong>
+          </div>
+        <% else %>
+          <p class="text-muted">No data available</p>
+        <% end %>
+      </div>
+      <div class="card-footer">
+        <%= link_to "View Details", dashboard_vietlot55_path, class: "btn btn-success" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title mb-0">
+          <i class="bi bi-clock-history"></i> Recent Vietlot 45 Draws
+        </h5>
+      </div>
+      <div class="card-body">
+        <% if @vietlot45_recent.any? %>
+          <div class="table-responsive">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Numbers</th>
+                  <th>Template</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @vietlot45_recent.each do |draw| %>
+                  <tr>
+                    <td><%= draw.formatted_date %></td>
+                    <td>
+                      <% draw.numbers_array.each do |number| %>
+                        <span class="lottery-number" style="width: 25px; height: 25px; line-height: 25px; font-size: 0.8em;"><%= number %></span>
+                      <% end %>
+                    </td>
+                    <td><span class="template-id" style="font-size: 0.7em;"><%= draw.template_id %></span></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        <% else %>
+          <p class="text-muted">No recent draws available</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title mb-0">
+          <i class="bi bi-clock-history"></i> Recent Vietlot 55 Draws
+        </h5>
+      </div>
+      <div class="card-body">
+        <% if @vietlot55_recent.any? %>
+          <div class="table-responsive">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Numbers</th>
+                  <th>Template</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @vietlot55_recent.each do |draw| %>
+                  <tr>
+                    <td><%= draw.formatted_date %></td>
+                    <td>
+                      <% draw.numbers_array.each do |number| %>
+                        <span class="lottery-number" style="width: 25px; height: 25px; line-height: 25px; font-size: 0.8em;"><%= number %></span>
+                      <% end %>
+                    </td>
+                    <td><span class="template-id" style="font-size: 0.7em;"><%= draw.template_id %></span></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        <% else %>
+          <p class="text-muted">No recent draws available</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title mb-0">
+          <i class="bi bi-graph-up-arrow"></i> Quick Actions
+        </h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-3">
+            <%= link_to dashboard_statistics_path, class: "btn btn-outline-primary w-100 mb-2" do %>
+              <i class="bi bi-bar-chart"></i><br>Statistics
+            <% end %>
+          </div>
+          <div class="col-md-3">
+            <%= link_to dashboard_predictions_path, class: "btn btn-outline-success w-100 mb-2" do %>
+              <i class="bi bi-cpu"></i><br>AI Predictions
+            <% end %>
+          </div>
+          <div class="col-md-3">
+            <%= link_to api_v1_lottery_draws_path, class: "btn btn-outline-info w-100 mb-2" do %>
+              <i class="bi bi-code-slash"></i><br>API Data
+            <% end %>
+          </div>
+          <div class="col-md-3">
+            <%= link_to "/api-docs", class: "btn btn-outline-warning w-100 mb-2" do %>
+              <i class="bi bi-book"></i><br>API Docs
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
