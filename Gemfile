@@ -37,7 +37,7 @@ gem "tzinfo-data", platforms: %i[ mswin mswin64 mingw x64_mingw jruby ]
 # gem "image_processing", "~> 1.2"
 
 # Background jobs
-gem "sidekiq", "~> 5.0"
+gem "sidekiq", "~> 6.0"
 
 # CORS support
 gem "rack-cors"
