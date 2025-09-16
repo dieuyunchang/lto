@@ -82,8 +82,8 @@ The application provides multiple ways to sync lottery data:
    rails sync:run
    
    # Sync specific game
-   rails sync:run_game[vietlot45]
-   rails sync:run_game[vietlot55]
+   rails "sync:run_game[vietlot45]"
+   rails "sync:run_game[vietlot55]"
    
    # Check sync status
    rails sync:status

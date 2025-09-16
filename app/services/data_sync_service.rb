@@ -7,7 +7,7 @@ require 'httparty'
 class DataSyncService
   BASE_URLS = {
     'vietlot45' => 'https://www.ketquadientoan.com/tat-ca-ky-xo-so-mega-6-45.html',
-    'vietlot55' => 'https://www.ketquadientoan.com/tat-ca-ky-xo-so-mega-6-55.html'
+    'vietlot55' => 'https://www.ketquadientoan.com/tat-ca-ky-xo-so-power-655.html'
   }.freeze
   
   def initialize(game_type)
@@ -49,7 +49,7 @@ class DataSyncService
     start_date = @game_type == 'vietlot45' ? '01-01-2016' : '03-12-2019'
     end_date = Date.current.strftime('%d-%m-%Y')
     url = "#{@base_url}?datef=#{start_date}&datet=#{end_date}"
-    
+
     # Use HTTParty for more robust HTTP handling
     response = HTTParty.get(url, {
       headers: {
@@ -58,17 +58,14 @@ class DataSyncService
       follow_redirects: true,
       verify: false
     })
-    
     unless response.success?
       raise "HTTP request failed: #{response.code} #{response.message}"
     end
     
     doc = Nokogiri::HTML(response.body)
     results = []
-    
     # Different selectors for different game types  
     table_selector = @game_type == 'vietlot45' ? 'table.table-mini-result tr' : 'table.table-mini-result tr'
-    
     
     doc.css(table_selector).each do |row|
       cols = row.css('td')
